@@ -49,13 +49,6 @@ nav {
 }
 
 /* 主体内容区域样式 */
-main {
-    max-width: 1200px;
-    margin: 40px auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 40px;
-}
 
 h2 {
     font-size: 28px;
@@ -64,12 +57,20 @@ h2 {
 }
 
 section {
-    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 24px;
+    margin:0px auto;
     border-radius: 4px;
+    width:80%;
+    height:80%;
+    border:1px solid black;
+    border-radius: 5%;
 }
-
+section #mapDiv{
+    width:800px;
+    height: 800px;
+    background-color: transparent;
+}
 .form-control {
     display: block;
     width: 100%;

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>数据可视化平台</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/leaflet.css">
+    <script src="./js/leaflet/leaflet.js"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -21,20 +23,15 @@
 </nav>
 
 <!-- 主体内容区域 -->
-<main>
 
-    <section class="data-visualization">
-        <h2>可视化展示</h2>
-        <div class="chart-container">
-            <!-- 这里可以插入数据可视化图表的代码 -->
-        </div>
-    </section>
+<section class="data-visualization">
+    <h2>研究区域</h2>
+    <div id="mapDiv">
 
-    <section class="report-export">
-        <h2>报告导出</h2>
-        <button>导出 PDF 报告</button>
-    </section>
-</main>
+    </div>
+</section>
+
+<script src="./js/map.js"></script>
 
 <!-- 页脚 -->
 <footer>
