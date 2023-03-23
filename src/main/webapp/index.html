@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/leaflet.css">
     <script src="./js/leaflet/leaflet.js"></script>
+    <script src="./js/echarts.min.js"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -26,12 +27,18 @@
 
 <section class="data-visualization">
     <h2>研究区域</h2>
-    <div id="mapDiv">
+    <div id="mapDiv" class="visual-content">
 
     </div>
 </section>
+<section class="data-visualization">
+    <h2>图表展示</h2>
+    <div id="dataDiv" class="visual-content">
 
+    </div>
+</section>
 <script src="./js/map.js"></script>
+<script src="./js/drawChart.js"></script>
 
 <!-- 页脚 -->
 <footer>
