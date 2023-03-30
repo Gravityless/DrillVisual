@@ -4,8 +4,8 @@ var leafletMap = new L.Map("mapDiv", {
     center: [32.216311,119.443884],
     boxZoom: true,
 });
-var wmsLayer= L.tileLayer.wms("http://localhost:5436/geoserver/lmy/wms", { // 链接要改对应的
-    layers: 'lmy:drillpoints_wgs84',//需要加载的图层,就是我们刚刚新建的。map 和 图层名称
+var wmsLayer= L.tileLayer.wms("http://localhost:8090/geoserver/drilldata/wms", { // 链接对应工作空间
+    layers: 'drilldata:drillpoints', //需要加载的图层,对应工作空间和图层名称
 });
 leafletMap.addLayer(wmsLayer);
 
