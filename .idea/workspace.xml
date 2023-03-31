@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="bb5b9c0a-7f7c-4d83-8aa0-879b01071a13" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/leaflet/leaflet-src.esm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/leaflet/leaflet-src.esm.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/leaflet/leaflet-src.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/leaflet/leaflet-src.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/leaflet/leaflet.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/leaflet/leaflet.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,18 +41,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Data/github/CesiumCity",
-    "list.type.of.created.stylesheet": "CSS",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Data/github/CesiumCity&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -58,6 +63,7 @@
       <updated>1679114175101</updated>
       <workItem from="1679114176704" duration="26553000" />
       <workItem from="1679579225265" duration="1805000" />
+      <workItem from="1680246794934" duration="4305000" />
     </task>
     <servers />
   </component>
