@@ -12,3 +12,6 @@
     5. Geoserver端口8090
     6. MSSQL端口1433
     7. Tomcat端口80
+
+## 注意：
+    geoserver需要开启跨域，解决方案https://blog.csdn.net/xinleicol/article/details/118308342

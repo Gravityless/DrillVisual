@@ -58,20 +58,47 @@ h2 {
     font-weight: bold;
     margin-bottom: 16px;
 }
-
 section {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 24px;
     margin:0px auto;
     border-radius: 4px;
-    width:80%;
-    height:80%;
+    width:50%;
+    height:70%;
     border:1px solid black;
     border-radius: 5%;
+    position: relative;
+}
+section #mapDiv{
+    cursor:pointer;
 }
 section .visual-content{
     width:95%;
     height: 85%;
+}
+ div#wrapper{
+    height: 50px;
+     width: 50%;
+     margin:5px auto;
+}
+ div#wrapper #location{
+     line-height: 50px;
+     float: left;
+ }
+ div#wrapper #scale{
+     line-height: 50px;
+     float: right;
+ }
+ div#pointtable{
+     height: 500px;
+     width: 400px;
+     position: absolute;
+     right:0px;
+     top:25%;
+ }
+div#pointtable iframe{
+    height: 500px;
+    width: 400px;
 }
 .form-control {
     display: block;
