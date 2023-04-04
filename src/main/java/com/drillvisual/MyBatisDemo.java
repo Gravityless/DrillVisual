@@ -1,6 +1,8 @@
 package com.drillvisual;
 
 import java.util.List;
+
+import com.drillvisual.mapper.UserMapper;
 import com.drillvisual.pojo.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -18,7 +20,10 @@ public class MyBatisDemo {
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
-        List<User> users = sqlSession.selectList("user.selectAll");
+        // List<User> users = sqlSession.selectList("user.selectAll");
+
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> users = userMapper.selectAll();
 
         System.out.println(users);
 

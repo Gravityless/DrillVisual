@@ -15,6 +15,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="UserMapper.xml"/>
+        <mapper resource="com/drillvisual/mapper/UserMapper.xml"/>
     </mappers>
 </configuration>
