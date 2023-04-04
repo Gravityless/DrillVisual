@@ -24,8 +24,9 @@ public class MyBatisDemo {
 
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         List<User> users = userMapper.selectAll();
+        User user = userMapper.selectById(1);
 
-        System.out.println(users);
+        System.out.println(user);
 
         sqlSession.close();
     }
