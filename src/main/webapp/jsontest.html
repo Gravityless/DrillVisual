@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p id="name">unnamed</p>
+
+<script src="js/axios.js"></script>
+
+<script>
+    window.onload = function() {
+        axios.post('http://localhost/DrillVisual/JsonServlet', {
+            username:"lily"
+          })
+          .then(function (res) {
+            let users = res.data;
+            let user = users[0];
+            document.getElementById("name").innerHTML = user.name;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+</script>
+
+</body>
+</html>

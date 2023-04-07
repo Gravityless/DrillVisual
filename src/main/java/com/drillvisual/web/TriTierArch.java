@@ -31,6 +31,7 @@ public class TriTierArch extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        System.out.println("doPost");
         this.doGet(req, res);
     }
 }

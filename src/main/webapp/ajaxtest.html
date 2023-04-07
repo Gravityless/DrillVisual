@@ -40,5 +40,40 @@
     };
 </script>
 
+<!--Axios测试-->
+<script src="js/axios.js"></script>
+<script>
+    // GET
+    axios.get('http://localhost/DrillVisual/TriTierArch', {
+        params:{
+        username:"lily"
+        }
+      })
+      .then(function (res) {
+        // handle success
+        alert("from Axios by GET" + res.data)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+</script>
+
+<script>
+    // POST
+    axios.post('http://localhost/DrillVisual/TriTierArch', {
+        username:"lily"
+      })
+      .then(function (res) {
+        alert("from Axios by POST" + res.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+</script>
+
 </body>
 </html>
