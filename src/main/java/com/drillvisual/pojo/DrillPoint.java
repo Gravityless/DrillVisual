@@ -1,5 +1,7 @@
 package com.drillvisual.pojo;
 
+import java.util.List;
+
 public class DrillPoint {
     public String getDrillId() {
         return drillId;
@@ -65,6 +67,14 @@ public class DrillPoint {
         this.drillDepth = drillDepth;
     }
 
+    public List<DrillStratum> getDrillStratumList() {
+        return drillStratumList;
+    }
+
+    public void setDrillStratumList(List<DrillStratum> drillStratumList) {
+        this.drillStratumList = drillStratumList;
+    }
+
     @Override
     public String toString() {
         return "DrillPoint{" +
@@ -76,6 +86,7 @@ public class DrillPoint {
                 ", drillY=" + drillY +
                 ", drillHeight=" + drillHeight +
                 ", drillDepth=" + drillDepth +
+                ", drillStratumList=" + drillStratumList +
                 '}';
     }
 
@@ -87,4 +98,5 @@ public class DrillPoint {
     private Double drillY;
     private Double drillHeight;
     private Double drillDepth;
+    private List<DrillStratum> drillStratumList;
 }

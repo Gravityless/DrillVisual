@@ -48,11 +48,11 @@ public class FieldTestServlet extends HttpServlet {
         String reqBody = builder.toString();
         // 将JSON数组转换为字符串数组
         String[] drillIds = JSON.parseObject(reqBody, String[].class);
-        // 向Response中写入数据
-        PrintWriter writer = res.getWriter();
+        // 从Generator获取计算结果
         if (drillIds != null) {
             List<DrillPoint> result = stratumLineGenerator.generate(drillIds);
-            writer.write(JSON.toJSONString(result));
+            // 向Response中写入数据
+            res.getWriter().write(JSON.toJSONString(result));
         }
     }
 
