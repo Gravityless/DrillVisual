@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drillvisual.mapper.DrillPointMapper">
+    <!--数据库字段名和实体类属性名不一致，可以给查询结果表的列属性起别名-->
+    <!--也可以用include引用sql片段-->
+    <!--也可以用resultMap替换resultType，
+        id：完成主键映射
+        result：完成一般字段映射
+        -->
+
+    <resultMap id="drillPointResultMap" type="drillPoint">
+        <id column="Drill_ID" property="drillId"/>
+        <result column="Prj_ID" property="prjId" />
+        <result column="Drill_Code" property="drillCode" />
+        <result column="Drill_Diameter" property="drillDiameter" />
+        <result column="Drill_GeoPOS_X" property="drillX" />
+        <result column="Drill_GeoPOS_Y" property="drillY" />
+        <result column="Drill_HoleElevation" property="drillHeight" />
+        <result column="Drill_Depth" property="drillDepth" />
+    </resultMap>
+
+    <select id="selectById" resultMap="drillPointResultMap">
+        select * from "EngGeo_Exp_Drill" where Drill_ID = #{id};
+    </select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drillvisual.mapper.DrillStratumMapper">
+    <!--数据库字段名和实体类属性名不一致，可以给查询结果表的列属性起别名-->
+    <!--也可以用include引用sql片段-->
+    <!--也可以用resultMap替换resultType，
+        id：完成主键映射
+        result：完成一般字段映射
+        -->
+
+    <resultMap id="drillStratumResultMap" type="drillStratum">
+        <id column="DrillLayer_RockSoil_ID" property="drillStratumId" />
+        <result column="Drill_ID" property="drillId" />
+        <result column="Stratum_RockSoil_Cata_ID" property="stratumId" />
+        <result column="DLRS_Depth_Surface_Top" property="topDepth" />
+        <result column="DLRS_Depth_Surface_Bottom" property="bottomDepth" />
+    </resultMap>
+
+    <select id="selectById" resultMap="drillStratumResultMap">
+        select * from "EngGeo_Exp_Drill_Layer_RockSoil" where DrillLayer_RockSoil_ID = #{id};
+    </select>
+    <select id="selectByDrillId" resultMap="drillStratumResultMap">
+        select * from "EngGeo_Exp_Drill_Layer_RockSoil" where Drill_ID = #{id};
+    </select>
+</mapper>

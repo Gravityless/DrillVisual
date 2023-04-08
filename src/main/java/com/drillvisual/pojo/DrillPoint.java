@@ -1,4 +1,90 @@
 package com.drillvisual.pojo;
 
 public class DrillPoint {
+    public String getDrillId() {
+        return drillId;
+    }
+
+    public void setDrillId(String drillId) {
+        this.drillId = drillId;
+    }
+
+    public String getPrjId() {
+        return prjId;
+    }
+
+    public void setPrjId(String prjId) {
+        this.prjId = prjId;
+    }
+
+    public String getDrillCode() {
+        return drillCode;
+    }
+
+    public void setDrillCode(String drillCode) {
+        this.drillCode = drillCode;
+    }
+
+    public Double getDrillDiameter() {
+        return drillDiameter;
+    }
+
+    public void setDrillDiameter(Double drillDiameter) {
+        this.drillDiameter = drillDiameter;
+    }
+
+    public Double getDrillX() {
+        return drillX;
+    }
+
+    public void setDrillX(Double drillX) {
+        this.drillX = drillX;
+    }
+
+    public Double getDrillY() {
+        return drillY;
+    }
+
+    public void setDrillY(Double drillY) {
+        this.drillY = drillY;
+    }
+
+    public Double getDrillHeight() {
+        return drillHeight;
+    }
+
+    public void setDrillHeight(Double drillHeight) {
+        this.drillHeight = drillHeight;
+    }
+
+    public Double getDrillDepth() {
+        return drillDepth;
+    }
+
+    public void setDrillDepth(Double drillDepth) {
+        this.drillDepth = drillDepth;
+    }
+
+    @Override
+    public String toString() {
+        return "DrillPoint{" +
+                "drillId='" + drillId + '\'' +
+                ", prjId='" + prjId + '\'' +
+                ", drillCode='" + drillCode + '\'' +
+                ", drillDiameter=" + drillDiameter +
+                ", drillX=" + drillX +
+                ", drillY=" + drillY +
+                ", drillHeight=" + drillHeight +
+                ", drillDepth=" + drillDepth +
+                '}';
+    }
+
+    private String drillId;
+    private String prjId;
+    private String drillCode;
+    private Double drillDiameter;
+    private Double drillX;
+    private Double drillY;
+    private Double drillHeight;
+    private Double drillDepth;
 }
