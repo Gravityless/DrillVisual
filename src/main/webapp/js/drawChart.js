@@ -1,7 +1,7 @@
 var chart1 = echarts.init(document.getElementById("dataDiv"));
 
 // 指定图表的配置项和数据
-var dataX = ['18~30岁', '31~40岁', '41~50岁', '51~60岁', '61~70岁'];
+var dataX = ['18~30', '31~40', '41~50', '51~60', '61~70'];
 var dataY = ['200', '102', '422', '189', '12'];
 var dataZ = [500, 500, 500, 500, 500];
 var option = {
