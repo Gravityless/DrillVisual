@@ -3,6 +3,14 @@ package com.drillvisual.pojo;
 import java.util.List;
 
 public class LayerLine {
+    public int getColumnIndex() {
+        return columnIndex;
+    }
+
+    public void setColumnIndex(int columnIndex) {
+        this.columnIndex = columnIndex;
+    }
+
     public String getStratumId() {
         return stratumId;
     }
@@ -19,12 +27,12 @@ public class LayerLine {
         this.drillPointLeft = drillPointLeft;
     }
 
-    public DrillPoint getGetDrillPointRight() {
-        return getDrillPointRight;
+    public DrillPoint getDrillPointRight() {
+        return drillPointRight;
     }
 
-    public void setGetDrillPointRight(DrillPoint getDrillPointRight) {
-        this.getDrillPointRight = getDrillPointRight;
+    public void setDrillPointRight(DrillPoint drillPointRight) {
+        this.drillPointRight = drillPointRight;
     }
 
     public double getDepthLeft() {
@@ -43,20 +51,23 @@ public class LayerLine {
         this.depthRight = depthRight;
     }
 
+
     @Override
     public String toString() {
         return "LayerLine{" +
-                "stratumId='" + stratumId + '\'' +
+                "columnIndex=" + columnIndex +
+                ", stratumId='" + stratumId + '\'' +
                 ", drillPointLeft=" + drillPointLeft +
-                ", getDrillPointRight=" + getDrillPointRight +
+                ", drillPointRight=" + drillPointRight +
                 ", depthLeft=" + depthLeft +
                 ", depthRight=" + depthRight +
                 '}';
     }
 
+    private int columnIndex;
     private String stratumId;
     private DrillPoint drillPointLeft;
-    private DrillPoint getDrillPointRight;
+    private DrillPoint drillPointRight;
     private double depthLeft;
     private double depthRight;
 }

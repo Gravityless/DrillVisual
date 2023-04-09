@@ -61,16 +61,41 @@ public class Connector {
     }
 
     public void link(int drillIdx, int leftIdx, int rightIdx, int type) {
+        // 设置layerline对象属性
+        LayerLine layerLine = new LayerLine();
+        layerLine.setColumnIndex(drillIdx);
+        layerLine.setDrillPointLeft(drillPointList.get(drillIdx));
+        layerLine.setDrillPointRight(drillPointList.get(drillIdx + 1));
+        // 获取stratum对象
+        DrillStratum stratumLeft = drillPointList.get(drillIdx).getDrillStratumList().get(leftIdx);
+        DrillStratum stratumRight = drillPointList.get(drillIdx + 1).getDrillStratumList().get(rightIdx);
         switch (type) {
             case TYPE_UNDEFINE:
                 break;
             case TYPE_CONTINUE:
-
+                layerLine.setStratumId(stratumLeft.getStratumId());
+                layerLine.setDepthLeft(stratumLeft.getBottomDepth());
+                layerLine.setDepthRight(stratumRight.getBottomDepth());
                 break;
             case TYPE_PINCH_RIGHT:
+                layerLine.setStratumId(stratumLeft.getStratumId());
+                layerLine.setDepthLeft(stratumLeft.getBottomDepth());
+                layerLine.setDepthRight(stratumRight.getTopDepth());
                 break;
             case TYPE_PINCH_LEFT:
+                layerLine.setStratumId(stratumRight.getStratumId());
+                layerLine.setDepthLeft(stratumLeft.getTopDepth());
+                layerLine.setDepthRight(stratumRight.getBottomDepth());
                 break;
+        }
+        layerLineList.add(layerLine);
+    }
+
+    public void postProcess() {
+        // 处理边界连线
+        // 将最顶层连接在一起
+        for (int i = 0; i < drillPointList.size() - 1; i++) {
+
         }
     }
 
@@ -83,5 +108,6 @@ public class Connector {
             checkRule(i);
         }
         // 后处理
+        postProcess();
     }
 }

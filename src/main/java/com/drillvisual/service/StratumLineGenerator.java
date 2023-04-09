@@ -53,7 +53,7 @@ public class StratumLineGenerator {
     }
 
     // 生成地层线的总方法
-    public List<DrillPoint> generate(String[] ids) {
+    public SectionPloter generate(String[] ids) {
         // 建立逻辑模型
         List<DrillPoint> drillPointList = buildLogicalModel(ids);
         // 生成钻孔线
@@ -65,6 +65,6 @@ public class StratumLineGenerator {
         sectionPloter.setDrillLine(drillLine);
         sectionPloter.setLayerLineList(layerLineList);
 
-        return drillPointList;
+        return sectionPloter;
     }
 }

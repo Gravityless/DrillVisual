@@ -3,10 +3,7 @@ package com.drillvisual.web;
 
 import com.drillvisual.pojo.DrillPoint;
 import com.drillvisual.pojo.DrillStratum;
-import com.drillvisual.service.DrillPointReader;
-import com.drillvisual.service.DrillStratumReader;
-import com.drillvisual.service.StratumLineGenerator;
-import com.drillvisual.service.UserService;
+import com.drillvisual.service.*;
 
 import com.alibaba.fastjson.JSON;
 
@@ -50,7 +47,7 @@ public class FieldTestServlet extends HttpServlet {
         String[] drillIds = JSON.parseObject(reqBody, String[].class);
         // 从Generator获取计算结果
         if (drillIds != null) {
-            List<DrillPoint> result = stratumLineGenerator.generate(drillIds);
+            SectionPloter result = stratumLineGenerator.generate(drillIds);
             // 向Response中写入数据
             res.getWriter().write(JSON.toJSONString(result));
         }
