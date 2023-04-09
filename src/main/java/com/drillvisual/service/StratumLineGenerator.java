@@ -46,19 +46,9 @@ public class StratumLineGenerator {
     public List<LayerLine> generateLayerLine(List<DrillPoint> drillPointList) {
         // 创建地层线表
         List<LayerLine> layerLineList = new ArrayList<LayerLine>();
-        // 遍历钻孔表
-        for (int i = 0; i < drillPointList.size(); i++) {
-            // 遍历钻孔地层
-            List<DrillStratum> drillStratumList = drillPointList.get(i).getDrillStratumList();
-            for (int j = 0; j < drillStratumList.size(); j++) {
-                // 根据地层类型选择连线规则
-                int type = connector.checkRule(drillStratumList.get(j), i, j, drillPointList);
-                // 按规则连线
-                LayerLine layerLine = connector.connect(type, drillStratumList.get(j), i, j, drillPointList);
-                // 将地层线添加到地层线表
-                layerLineList.add(layerLine);
-            }
-        }
+        // 调用Connector连线
+        connector.connect(layerLineList, drillPointList);
+
         return layerLineList;
     }
 
@@ -71,8 +61,6 @@ public class StratumLineGenerator {
         drillLine.setDrillPointList(drillPointList);
         // 生成地层线
         List<LayerLine> layerLineList = generateLayerLine(drillPointList);
-
-
         // 生成剖面模型
         sectionPloter.setDrillLine(drillLine);
         sectionPloter.setLayerLineList(layerLineList);
