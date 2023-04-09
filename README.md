@@ -15,11 +15,12 @@
 
 ## 输入输出数据流
     1. 前端向后端传送有序的钻孔ID的JSON数组
-    2. 后端返回的JSON字符串中，字段drillLine存储钻孔连线上所有钻孔的属性
-    3. 后端返回的JSON字符串中，字段layerLineList存储弧段数组
-    4. 弧段对象layerLine中，columnIndex为纵坐标，即钻孔序号
-    5. 弧段对象layerLine中，depthLeft和depthRight分别为弧段的起点和终点
-    6. 弧段对象layerLine中，stratumId为地层类型编号
+    2. 后端返回的JSON字符串中，字段drillLine存储钻孔连线上所有钻孔的属性，仅保留用
+    3. 后端返回的JSON字符串中，字段layerLineList存储弧段数组，弧段存在于两个相邻钻孔之间
+    4. 弧段对象layerLine中，columnIndex为横坐标，即钻孔序号
+    5. 弧段对象layerLine中，depthLeft和depthRight分别为弧段的起点和终点纵坐标
+    6. 弧段对象layerLine中，stratumId为地层类型编号，指示该弧段以上到上一条弧段之间的区域的地层类型
+    7. 后端返回的JSON字符串中，字段drillDistance表示相邻两个钻孔之间的距离
 
 ## 后端返回数据如下图：
 ![SectionPloter数据结构](SectionPloter.jpg)

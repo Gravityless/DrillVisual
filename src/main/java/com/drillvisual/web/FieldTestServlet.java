@@ -47,9 +47,12 @@ public class FieldTestServlet extends HttpServlet {
         String[] drillIds = JSON.parseObject(reqBody, String[].class);
         // 从Generator获取计算结果
         if (drillIds != null) {
-            SectionPloter result = stratumLineGenerator.generate(drillIds);
+            // 获取sectionPloter对象
+            SectionPloter sectionPloter = stratumLineGenerator.generate(drillIds);
+            // 计算横坐标相对距离
+            sectionPloter.computeDistance();
             // 向Response中写入数据
-            res.getWriter().write(JSON.toJSONString(result));
+            res.getWriter().write(JSON.toJSONString(sectionPloter));
         }
     }
 

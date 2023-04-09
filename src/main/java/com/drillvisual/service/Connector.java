@@ -3,6 +3,7 @@ package com.drillvisual.service;
 import com.drillvisual.pojo.DrillPoint;
 import com.drillvisual.pojo.DrillStratum;
 import com.drillvisual.pojo.LayerLine;
+import sun.plugin.javascript.navig4.Layer;
 
 import java.util.List;
 
@@ -73,19 +74,20 @@ public class Connector {
             case TYPE_UNDEFINE:
                 break;
             case TYPE_CONTINUE:
+                // 钻孔高程 - 钻孔地层深度 = 钻孔地层面绝对坐标
                 layerLine.setStratumId(stratumLeft.getStratumId());
-                layerLine.setDepthLeft(stratumLeft.getBottomDepth());
-                layerLine.setDepthRight(stratumRight.getBottomDepth());
+                layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight() - stratumLeft.getBottomDepth());
+                layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight() - stratumRight.getBottomDepth());
                 break;
             case TYPE_PINCH_RIGHT:
                 layerLine.setStratumId(stratumLeft.getStratumId());
-                layerLine.setDepthLeft(stratumLeft.getBottomDepth());
-                layerLine.setDepthRight(stratumRight.getTopDepth());
+                layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight() - stratumLeft.getBottomDepth());
+                layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight() - stratumRight.getTopDepth());
                 break;
             case TYPE_PINCH_LEFT:
                 layerLine.setStratumId(stratumRight.getStratumId());
-                layerLine.setDepthLeft(stratumLeft.getTopDepth());
-                layerLine.setDepthRight(stratumRight.getBottomDepth());
+                layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight() - stratumLeft.getTopDepth());
+                layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight() - stratumRight.getBottomDepth());
                 break;
         }
         layerLineList.add(layerLine);
@@ -95,7 +97,26 @@ public class Connector {
         // 处理边界连线
         // 将最顶层连接在一起
         for (int i = 0; i < drillPointList.size() - 1; i++) {
-
+            // 设置layerLine基本属性
+            LayerLine layerLine = new LayerLine();
+            layerLine.setColumnIndex(i);
+            layerLine.setDrillPointLeft(drillPointList.get(i));
+            layerLine.setDrillPointRight(drillPointList.get(i + 1));
+            // 获取stratum对象
+            DrillStratum stratumLeft = drillPointList.get(i).getDrillStratumList().get(0);
+            DrillStratum stratumRight = drillPointList.get(i + 1).getDrillStratumList().get(0);
+            // 判断地层年代顺序
+            int type = stratumLeft.getStratumId().compareTo(stratumRight.getStratumId());
+            if (type <= 0) {
+                layerLine.setStratumId(stratumLeft.getStratumId());
+            } else {
+                layerLine.setStratumId(stratumRight.getStratumId());
+            }
+            // 连接顶板高度绝对坐标
+            layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight());
+            layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight());
+            // 添加到地层线表
+            layerLineList.add(layerLine);
         }
     }
 
