@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>FieldTest</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/echarts.min.js"></script>
+    <script src="js/axios.js"></script>
+    <link rel="stylesheet" href="https://openlayers.org/en/v3.20.1/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v3.20.1/build/ol.js" type="text/javascript"></script>
 </head>
 <body>
 
 // 这里展示返回数据
 <p id="output"></p>
 
-<script src="js/axios.js"></script>
-<script>
-    // 这里输入模拟JSON数组
-    var json = ["35-1001","35-1002","35-1003"]
+<section class="data-visualization">
+    <h2>图表展示</h2>
+    <div id="dataDiv" class="visual-content"></div>
+</section>
 
-    // POST
-    axios.post('http://localhost/DrillVisual/FieldTestServlet', json)
-      .then(function (res) {
-        // 这里获取返回数据
-        document.getElementById("output").innerHTML = JSON.stringify(res.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-</script>
+<script src="js/plotChart.js"></script>
 
 </body>
 </html>

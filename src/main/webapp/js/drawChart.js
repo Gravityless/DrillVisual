@@ -1,5 +1,7 @@
-var chart1 = echarts.init(document.getElementById("dataDiv"));
+// 这里输入模拟JSON数组
+request = ["35-1001","35-1002","35-1003"]
 
+var chart1 = echarts.init(document.getElementById("dataDiv"));
 // 指定图表的配置项和数据
 var dataX = ['18~30', '31~40', '41~50', '51~60', '61~70'];
 var dataY = ['200', '102', '422', '189', '12'];
@@ -150,6 +152,5 @@ var option = {
         animation: false
     }],
 };
-
 // 使用刚指定的配置项和数据显示图表
-chart1.setOption(option)
+chart1.setOption(option);
