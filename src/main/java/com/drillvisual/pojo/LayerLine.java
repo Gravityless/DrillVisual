@@ -19,22 +19,6 @@ public class LayerLine {
         this.stratumId = stratumId;
     }
 
-    public DrillPoint getDrillPointLeft() {
-        return drillPointLeft;
-    }
-
-    public void setDrillPointLeft(DrillPoint drillPointLeft) {
-        this.drillPointLeft = drillPointLeft;
-    }
-
-    public DrillPoint getDrillPointRight() {
-        return drillPointRight;
-    }
-
-    public void setDrillPointRight(DrillPoint drillPointRight) {
-        this.drillPointRight = drillPointRight;
-    }
-
     public double getDepthLeft() {
         return depthLeft;
     }
@@ -57,8 +41,6 @@ public class LayerLine {
         return "LayerLine{" +
                 "columnIndex=" + columnIndex +
                 ", stratumId='" + stratumId + '\'' +
-                ", drillPointLeft=" + drillPointLeft +
-                ", drillPointRight=" + drillPointRight +
                 ", depthLeft=" + depthLeft +
                 ", depthRight=" + depthRight +
                 '}';
@@ -66,8 +48,8 @@ public class LayerLine {
 
     private int columnIndex;
     private String stratumId;
-    private DrillPoint drillPointLeft;
-    private DrillPoint drillPointRight;
+    // private DrillPoint drillPointLeft;
+    // private DrillPoint drillPointRight;
     private double depthLeft;
     private double depthRight;
 }

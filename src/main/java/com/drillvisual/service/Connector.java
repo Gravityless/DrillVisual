@@ -65,8 +65,6 @@ public class Connector {
         // 设置layerline对象属性
         LayerLine layerLine = new LayerLine();
         layerLine.setColumnIndex(drillIdx);
-        layerLine.setDrillPointLeft(drillPointList.get(drillIdx));
-        layerLine.setDrillPointRight(drillPointList.get(drillIdx + 1));
         // 获取stratum对象
         DrillStratum stratumLeft = drillPointList.get(drillIdx).getDrillStratumList().get(leftIdx);
         DrillStratum stratumRight = drillPointList.get(drillIdx + 1).getDrillStratumList().get(rightIdx);
@@ -76,18 +74,18 @@ public class Connector {
             case TYPE_CONTINUE:
                 // 钻孔高程 - 钻孔地层深度 = 钻孔地层面绝对坐标
                 layerLine.setStratumId(stratumLeft.getStratumId());
-                layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight() - stratumLeft.getBottomDepth());
-                layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight() - stratumRight.getBottomDepth());
+                layerLine.setDepthLeft(drillPointList.get(drillIdx).getDrillHeight() - stratumLeft.getBottomDepth());
+                layerLine.setDepthRight(drillPointList.get(drillIdx + 1).getDrillHeight() - stratumRight.getBottomDepth());
                 break;
             case TYPE_PINCH_RIGHT:
                 layerLine.setStratumId(stratumLeft.getStratumId());
-                layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight() - stratumLeft.getBottomDepth());
-                layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight() - stratumRight.getTopDepth());
+                layerLine.setDepthLeft(drillPointList.get(drillIdx).getDrillHeight() - stratumLeft.getBottomDepth());
+                layerLine.setDepthRight(drillPointList.get(drillIdx + 1).getDrillHeight() - stratumRight.getTopDepth());
                 break;
             case TYPE_PINCH_LEFT:
                 layerLine.setStratumId(stratumRight.getStratumId());
-                layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight() - stratumLeft.getTopDepth());
-                layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight() - stratumRight.getBottomDepth());
+                layerLine.setDepthLeft(drillPointList.get(drillIdx).getDrillHeight() - stratumLeft.getTopDepth());
+                layerLine.setDepthRight(drillPointList.get(drillIdx + 1).getDrillHeight() - stratumRight.getBottomDepth());
                 break;
         }
         layerLineList.add(layerLine);
@@ -100,8 +98,6 @@ public class Connector {
             // 设置layerLine基本属性
             LayerLine layerLine = new LayerLine();
             layerLine.setColumnIndex(i);
-            layerLine.setDrillPointLeft(drillPointList.get(i));
-            layerLine.setDrillPointRight(drillPointList.get(i + 1));
             // 获取stratum对象
             DrillStratum stratumLeft = drillPointList.get(i).getDrillStratumList().get(0);
             DrillStratum stratumRight = drillPointList.get(i + 1).getDrillStratumList().get(0);
@@ -113,8 +109,8 @@ public class Connector {
                 layerLine.setStratumId(stratumRight.getStratumId());
             }
             // 连接顶板高度绝对坐标
-            layerLine.setDepthLeft(layerLine.getDrillPointLeft().getDrillHeight());
-            layerLine.setDepthRight(layerLine.getDrillPointRight().getDrillHeight());
+            layerLine.setDepthLeft(drillPointList.get(i).getDrillHeight());
+            layerLine.setDepthRight(drillPointList.get(i + 1).getDrillHeight());
             // 添加到地层线表
             layerLineList.add(layerLine);
         }

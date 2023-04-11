@@ -1,8 +1,7 @@
 package com.drillvisual.web;
 
 
-import com.drillvisual.pojo.DrillPoint;
-import com.drillvisual.pojo.DrillStratum;
+import com.drillvisual.pojo.Section;
 import com.drillvisual.service.*;
 
 import com.alibaba.fastjson.JSON;
@@ -14,15 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 @WebServlet("/FieldTestServlet")
 public class FieldTestServlet extends HttpServlet {
 
     // 创建Service层对象
-    private DrillPointReader drillPointReader = new DrillPointReader();
-    private DrillStratumReader drillStratumReader = new DrillStratumReader();
     private StratumLineGenerator stratumLineGenerator = new StratumLineGenerator();
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // 字符串数组方式获取多个参数
@@ -48,11 +43,9 @@ public class FieldTestServlet extends HttpServlet {
         // 从Generator获取计算结果
         if (drillIds != null) {
             // 获取sectionPloter对象
-            SectionPloter sectionPloter = stratumLineGenerator.generate(drillIds);
-            // 计算横坐标相对距离
-            sectionPloter.computeDistance();
+            Section section = stratumLineGenerator.generate(drillIds);
             // 向Response中写入数据
-            res.getWriter().write(JSON.toJSONString(sectionPloter));
+            res.getWriter().write(JSON.toJSONString(section));
         }
     }
 

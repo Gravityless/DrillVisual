@@ -45,8 +45,8 @@ axios.post('http://localhost/DrillVisual/FieldTestServlet', request)
     }
     // 连接钻孔线
     for (idx = 0; idx < colNum; idx++) {
-        var height = result.drillLine.drillPointList[idx].drillHeight;
-        var depth = result.drillLine.drillPointList[idx].drillDepth;
+        var height = result.drillPointList[idx].drillHeight;
+        var depth = result.drillPointList[idx].drillDepth;
         var line = {
             data:[
                 [xArray[idx], height],

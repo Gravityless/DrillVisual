@@ -1,9 +1,6 @@
 package com.drillvisual.service;
 
-import com.drillvisual.pojo.DrillLine;
-import com.drillvisual.pojo.DrillPoint;
-import com.drillvisual.pojo.DrillStratum;
-import com.drillvisual.pojo.LayerLine;
+import com.drillvisual.pojo.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +9,11 @@ public class StratumLineGenerator {
     // 创建Service层对象
     private DrillPointReader drillPointReader = new DrillPointReader();
     private DrillStratumReader drillStratumReader = new DrillStratumReader();
-    private SectionPloter sectionPloter = new SectionPloter();
+    private Section section = new Section();
     private Connector connector = new Connector();
 
     // 建立钻孔和地层的逻辑模型
-    public List<DrillPoint> buildLogicalModel(String[] ids) {
+    public List<DrillPoint> generatedrillPointList(String[] ids) {
         List<DrillPoint> drillPointList = getDrillPiontList(ids);
         tieStratum2DrillPoint(drillPointList);
         return drillPointList;
@@ -43,7 +40,7 @@ public class StratumLineGenerator {
     }
 
     // 生成地层线表
-    public List<LayerLine> generateLayerLine(List<DrillPoint> drillPointList) {
+    public List<LayerLine> generateLayerLineList(List<DrillPoint> drillPointList) {
         // 创建地层线表
         List<LayerLine> layerLineList = new ArrayList<LayerLine>();
         // 调用Connector连线
@@ -52,19 +49,28 @@ public class StratumLineGenerator {
         return layerLineList;
     }
 
-    // 生成地层线的总方法
-    public SectionPloter generate(String[] ids) {
-        // 建立逻辑模型
-        List<DrillPoint> drillPointList = buildLogicalModel(ids);
-        // 生成钻孔线
-        DrillLine drillLine = new DrillLine();
-        drillLine.setDrillPointList(drillPointList);
-        // 生成地层线
-        List<LayerLine> layerLineList = generateLayerLine(drillPointList);
-        // 生成剖面模型
-        sectionPloter.setDrillLine(drillLine);
-        sectionPloter.setLayerLineList(layerLineList);
+    public List<Double> computeDistance(List<DrillPoint> drillPointList) {
+        List<Double> drillDistance = new ArrayList<Double>();
+        for (int i = 0; i < drillPointList.size() - 1; i++) {
+            Double distX = drillPointList.get(i).getDrillX() - drillPointList.get(i + 1).getDrillX();
+            Double distY = drillPointList.get(i).getDrillY() - drillPointList.get(i + 1).getDrillY();
+            drillDistance.add(Math.sqrt(distX * distX + distY * distY));
+        }
+        return drillDistance;
+    }
 
-        return sectionPloter;
+    // 生成地层线的总方法
+    public Section generate(String[] ids) {
+        // 生成钻孔线
+        List<DrillPoint> drillPointList = generatedrillPointList(ids);
+        // 生成地层线
+        List<LayerLine> layerLineList = generateLayerLineList(drillPointList);
+        // 计算钻孔间距
+        List<Double> drillDistanceList = computeDistance(drillPointList);
+        // 设置剖面模型
+        section.setDrillPointList(drillPointList);
+        section.setLayerLineList(layerLineList);
+        section.setDrillDistance(drillDistanceList);
+        return section;
     }
 }
