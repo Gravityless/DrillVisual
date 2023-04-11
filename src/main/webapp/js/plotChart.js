@@ -1,5 +1,5 @@
 // 这里输入模拟JSON数组
-request = ["35-1001","35-1002","35-1003"];
+request = ["35-1001","35-1002","35-1003","35-1004","35-1005"];
 // POST
 axios.post('http://localhost/DrillVisual/FieldTestServlet', request)
   .then(function (response) {
@@ -8,9 +8,10 @@ axios.post('http://localhost/DrillVisual/FieldTestServlet', request)
     var result = response.data;
     // 获取图表元素
     var myChart = echarts.init(document.getElementById("dataDiv"));
-    // 指定数据xArray和seriesArray
+    // 指定数据xArray, seriesArray, legendArray
     var xArray = [];
     var seriesArray = [];
+    var legendArray = [];
 
     // 计算xArray
     var idx, sum;
@@ -20,7 +21,7 @@ axios.post('http://localhost/DrillVisual/FieldTestServlet', request)
         sum += result.drillDistance[idx];
     }
     xArray[idx] = sum;
-    alert(xArray);
+    // alert(xArray);
 
     // 计算seriesArray
     var colNum = result.drillDistance.length + 1;
@@ -33,10 +34,14 @@ axios.post('http://localhost/DrillVisual/FieldTestServlet', request)
                 [xArray[arcList[idx].columnIndex], [arcList[idx].depthLeft]],
                 [xArray[arcList[idx].columnIndex + 1], [arcList[idx].depthRight]]
             ],
-            type: 'line'
+            type: 'line',
+            name: arcList[idx].stratumId,
+            // areaStyle: {}
         };
         // alert(line.data);
         seriesArray.push(line);
+        if (!legendArray.includes(arcList[idx].stratumId))
+            legendArray.push(arcList[idx].stratumId);
     }
     // 连接钻孔线
     for (idx = 0; idx < colNum; idx++) {
@@ -47,14 +52,30 @@ axios.post('http://localhost/DrillVisual/FieldTestServlet', request)
                 [xArray[idx], height],
                 [xArray[idx], height - depth]
             ],
-            type: 'line'
+            type: 'line',
+            name: 'Drill'
         };
         seriesArray.push(line);
     }
 
     // 指定图表的配置项
     option = {
-      xAxis: {},
+      legend: {
+        // Try 'horizontal'
+        data: legendArray,
+        orient: 'horizontal',
+        right: 0,
+        top: 'bottom'
+      },
+      xAxis: {
+      // show:false,//不显示坐标轴线、坐标轴刻度线和坐标轴上的文字
+      axisTick:{
+        show:false//不显示坐标轴刻度线
+      },
+      axisLine: {
+        show: false,//不显示坐标轴线
+        },
+      },
       yAxis: {},
       series: seriesArray
     };
