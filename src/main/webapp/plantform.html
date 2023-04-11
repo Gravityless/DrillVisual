@@ -16,9 +16,9 @@
     <a href="#">钻孔数据可视化平台</a>
   </div>
   <ul class="nav-links">
-    <li><a href="#">首页</a></li>
-    <li><a href="#">数据分析</a></li>
-    <li><a href="#">可视化展示</a></li>
+    <li><a href="http://localhost/DrillVisual/index.html">首页</a></li>
+    <li><a href="http://localhost/DrillVisual/plantform.html">数据分析</a></li>
+    <li><a href="http://localhost/DrillVisual/fieldtest.html">可视化展示</a></li>
     <li><a href="#">报告导出</a></li>
     <li><a href="#">设置</a></li>
   </ul>
@@ -27,6 +27,19 @@
 <!-- 主体内容区域 -->
 <section class="data-visualization">
   <h2>研究区域</h2>
+  <div class="draw-polygon">
+    <label style="font-weight: bold;">
+      几何图形类型：
+    </label>
+    <select id="type">
+      <option value="None" selected="selected">无</option>
+      <option value="Point">点</option>
+      <option value="LineString">线</option>
+      <option value="Polygon">多边形</option>
+    </select>
+    <button class="tool-button" id="draw-element" onclick="drawVector()">绘制</button>
+  </div>
+
   <div id="mapDiv" class="visual-content"></div>
 </section>
 <div id="wrapper">
@@ -35,13 +48,8 @@
 </div>
 <div id="pointtable"></div>
 
-<section class="data-visualization">
-  <h2>图表展示</h2>
-  <div id="dataDiv" class="visual-content"></div>
-</section>
 
 <script src="./js/drawMap.js"></script>
-<script src="./js/drawChart.js"></script>
 
 <!-- 页脚 -->
 <footer>
@@ -56,5 +64,76 @@
     <p>© 2023 NJU-GEO. All Rights Reserved.</p>
   </div>
 </footer>
+<script type="text/javascript">
+  var typeSelect = document.getElementById('type');
+  var draw;
+  var typeValue;
+  var isdraw=false;
+  var json = [];
+  var source = new ol.source.Vector();
+  // 设置样式
+  var vectorLayer = new ol.layer.Vector({
+    source: source,
+    style: new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: '#0055ff'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#00c033',
+        width: 2
+      }),
+      image: new ol.style.Circle({
+        radius: 7,
+        fill: new ol.style.Fill({
+          color: '#00c033'
+        })
+      })
+    })
+
+  })
+  map.addLayer(vectorLayer);
+
+  function addInteraction(typeValue) {
+    draw = new ol.interaction.Draw({
+      source: source,
+      snapTolerance: 12,
+      type: typeValue
+    });
+    if (typeValue=='LineString'){
+      draw.on('drawstart',function (){
+        isdraw=true;
+      })
+
+      draw.on('drawend',function (evt){
+        isdraw=false;
+        var xy=document.querySelector("#wrapper #location .custom-mouse-position").innerHTML;
+        xy=xy.split(',');xy[0]=parseFloat(xy[0]);xy[1]=parseFloat(xy[1])
+        json.push(xy);
+        console.log(json);
+        json=[];
+      })
+    }
+
+    map.addInteraction(draw);
+  }
+map.on('singleclick',function (evt){
+  if (isdraw){
+    //console.log(evt.coordinate)
+    json.push(evt.coordinate)
+  }
+})
+  // 点击事件方法
+  function drawVector() {
+    typeValue = typeSelect.value;
+    if (typeValue !== 'None') {
+      map.removeInteraction(draw);
+      addInteraction(typeValue);
+    } else {
+      // The callback method clears
+      map.removeInteraction(draw);
+      source.clear()
+    }
+  }
+</script>
 </body>
 </html>
