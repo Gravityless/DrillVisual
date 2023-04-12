@@ -13,8 +13,7 @@ public class StratumLineGenerator {
     private Section section = new Section();
 
     // Connector的两种实现
-    private Connector connector = new CheckRuleConnector();
-    // connector = new MaxMatchConnector();
+    private Connector connector = new MaxMatchConnector();
 
     // 建立钻孔和地层的逻辑模型
     public List<DrillPoint> generatedrillPointList(String[] ids) {
