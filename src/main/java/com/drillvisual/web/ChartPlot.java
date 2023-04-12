@@ -35,12 +35,15 @@ public class ChartPlot extends HttpServlet {
         }
         reader.close();
         String reqBody = builder.toString();
+        System.out.println(reqBody);
         // 将JSON数组转换为字符串数组
-        String[] drillIds = JSON.parseObject(reqBody, String[].class);
+        // String[] drillPoints = JSON.parseObject(reqBody, String[].class);
+        Double[][] drillPoints = JSON.parseObject(reqBody, Double[][].class);
+        System.out.println(drillPoints[0][0]);
         // 从Generator获取计算结果
-        if (drillIds != null) {
+        if (drillPoints != null) {
             // 获取sectionPloter对象
-            Section section = stratumLineGenerator.generate(drillIds);
+            Section section = stratumLineGenerator.generate(drillPoints);
             // 向Response中写入数据
             res.getWriter().write(JSON.toJSONString(section));
         }

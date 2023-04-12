@@ -3,6 +3,7 @@ package com.drillvisual.service;
 import com.drillvisual.pojo.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StratumLineGenerator {
@@ -22,12 +23,29 @@ public class StratumLineGenerator {
         return drillPointList;
     }
 
+    public List<DrillPoint> generatedrillPointList(Double[][] xys) {
+        List<DrillPoint> drillPointList = getDrillPiontList(xys);
+        tieStratum2DrillPoint(drillPointList);
+        return drillPointList;
+    }
+
     // 从DAO层获取钻孔表
     public List<DrillPoint> getDrillPiontList(String[] ids) {
         List<DrillPoint> drillPointList = new ArrayList<DrillPoint>();
         for (String drillId: ids) {
             // 调用Service层完成查询钻孔ID
             DrillPoint drillPoint = drillPointReader.selectById(drillId);
+            drillPointList.add(drillPoint);
+        }
+        return drillPointList;
+    }
+
+    public List<DrillPoint> getDrillPiontList(Double[][] xys) {
+        List<DrillPoint> drillPointList = new ArrayList<DrillPoint>();
+        for (Double[] xy: xys) {
+            System.out.println("Query: " + Arrays.toString(xy));
+            // 调用Service层完成查询钻孔ID
+            DrillPoint drillPoint = drillPointReader.selectByXY(xy);
             drillPointList.add(drillPoint);
         }
         return drillPointList;
@@ -66,6 +84,20 @@ public class StratumLineGenerator {
     public Section generate(String[] ids) {
         // 生成钻孔线
         List<DrillPoint> drillPointList = generatedrillPointList(ids);
+        // 生成地层线
+        List<LayerLine> layerLineList = generateLayerLineList(drillPointList);
+        // 计算钻孔间距
+        List<Double> drillDistanceList = computeDistance(drillPointList);
+        // 设置剖面模型
+        section.setDrillPointList(drillPointList);
+        section.setLayerLineList(layerLineList);
+        section.setDrillDistance(drillDistanceList);
+        return section;
+    }
+
+    public Section generate(Double[][] xys) {
+        // 生成钻孔线
+        List<DrillPoint> drillPointList = generatedrillPointList(xys);
         // 生成地层线
         List<LayerLine> layerLineList = generateLayerLineList(drillPointList);
         // 计算钻孔间距

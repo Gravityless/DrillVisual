@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DrillPointMapper {
     DrillPoint selectById(String id);
+
+    DrillPoint selectByXY(Double[] xy);
 }

@@ -22,4 +22,19 @@ public class DrillPointReader {
         // 返回结果
         return drillPoint;
     }
+
+    public DrillPoint selectByXY(Double[] xy) {
+        // 获取SqlSession
+        SqlSession sqlSession = factory.openSession();
+        // 获取Mapper
+        DrillPointMapper mapper = sqlSession.getMapper(DrillPointMapper.class);
+        // 调用方法
+        DrillPoint drillPoint = mapper.selectByXY(xy);
+        // 释放连接
+        sqlSession.close();
+        // 打印查询结果
+        System.out.println(drillPoint);
+        // 返回结果
+        return drillPoint;
+    }
 }

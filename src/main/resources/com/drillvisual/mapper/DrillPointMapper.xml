@@ -24,4 +24,12 @@
     <select id="selectById" resultMap="drillPointResultMap">
         select * from "EngGeo_Exp_Drill" where Drill_ID = #{id};
     </select>
+
+    <select id="selectByXY" resultMap="drillPointResultMap">
+        select * from "EngGeo_Exp_Drill"
+            where Drill_GeoPOS_X - #{array[0]} &lt; 5
+            and Drill_GeoPOS_X - #{array[0]} &gt; -5
+            and Drill_GeoPOS_Y - #{array[1]} &lt; 5
+            and Drill_GeoPOS_Y - #{array[1]} &gt; -5;
+    </select>
 </mapper>

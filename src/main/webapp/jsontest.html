@@ -6,19 +6,21 @@
 </head>
 <body>
 
-<p id="name">unnamed</p>
+<h3>Data view: </h3>
+<p id="data"></p>
 
 <script src="js/axios.js"></script>
 
 <script>
     window.onload = function() {
-        axios.post('http://localhost/DrillVisual/JsonServlet', {
-            username:"lily"
-          })
-          .then(function (res) {
-            let users = res.data;
-            let user = users[0];
-            document.getElementById("name").innerHTML = user.name;
+        request = [[447512.57616212807, 3566063.2553188796]
+                    ,[447534.8453397465, 3566064.0506526656]
+                    ,[447557.11451281403, 3566066.536045716]
+                    ,[447576.99771182967, 3566068.2261231844]
+                    ,[447594.3954995912, 3566058.334233178]];
+        axios.post('http://localhost/DrillVisual/ChartPlot', request)
+          .then(function (response) {
+            document.getElementById("data").innerHTML = JSON.stringify(response.data);
           })
           .catch(function (error) {
             console.log(error);
