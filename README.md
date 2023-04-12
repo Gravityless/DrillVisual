@@ -12,18 +12,24 @@
     5. Geoserver端口8090
     6. MSSQL端口1433
     7. Tomcat端口80
+    8. MSSQL数据库名drill
+    9. MSSQL用户名sa
+    10. MSSQL密码1234
 
 ## 输入输出数据流
-    1. 前端向后端传送有序的钻孔ID的JSON数组
-    2. 后端返回的JSON字符串中，字段drillLine存储钻孔连线上所有钻孔的属性，仅保留用
+    1. 前端向后端传送有序的钻孔XY坐标JSON数组
+    2. 后端返回的JSON字符串中，字段drillPointList存储钻孔连线上所有钻孔的属性
     3. 后端返回的JSON字符串中，字段layerLineList存储弧段数组，弧段存在于两个相邻钻孔之间
     4. 弧段对象layerLine中，columnIndex为横坐标，即钻孔序号
     5. 弧段对象layerLine中，depthLeft和depthRight分别为弧段的起点和终点纵坐标
     6. 弧段对象layerLine中，stratumId为地层类型编号，指示该弧段以上到上一条弧段之间的区域的地层类型
     7. 后端返回的JSON字符串中，字段drillDistance表示相邻两个钻孔之间的距离
 
+## 前端输出数据如下图：
+![前端输出数据结构](front.jpg)
+
 ## 后端返回数据如下图：
-![SectionPloter数据结构](SectionPloter.jpg)
+![SectionPloter数据结构](section.jpg)
 
 ## 注意：
     geoserver需要开启跨域，解决方案https://blog.csdn.net/xinleicol/article/details/118308342

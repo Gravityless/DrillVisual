@@ -15,7 +15,7 @@
                 <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
                 <property name="url" value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=drill;encrypt=true;trustServerCertificate=true;"/>
                 <property name="username" value="sa"/>
-                <property name="password" value="1"/>
+                <property name="password" value="1234"/>
             </dataSource>
         </environment>
     </environments>

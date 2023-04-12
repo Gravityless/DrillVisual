@@ -3,7 +3,6 @@ package com.drillvisual.service;
 import com.drillvisual.pojo.DrillPoint;
 import com.drillvisual.pojo.DrillStratum;
 import com.drillvisual.pojo.LayerLine;
-//import sun.plugin.javascript.navig4.Layer;
 
 import java.util.List;
 

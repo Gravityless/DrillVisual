@@ -116,12 +116,14 @@
 
     map.addInteraction(draw);
   }
-map.on('singleclick',function (evt){
-  if (isdraw){
-    //console.log(evt.coordinate)
-    json.push(evt.coordinate)
-  }
-})
+
+  map.on('singleclick',function (evt){
+    if (isdraw){
+      //console.log(evt.coordinate)
+      json.push(evt.coordinate)
+    }
+  })
+
   // 点击事件方法
   function drawVector() {
     typeValue = typeSelect.value;
