@@ -1,7 +1,7 @@
 // 这里输入模拟JSON数组
 request = ["35-1001","35-1002","35-1003","35-1004","35-1005"];
 // POST
-axios.post('http://localhost/DrillVisual/FieldTestServlet', request)
+axios.post('http://localhost/DrillVisual/ChartPlot', request)
   .then(function (response) {
     // 这里获取返回数据
     // document.getElementById("output").innerHTML = JSON.stringify(response.data);

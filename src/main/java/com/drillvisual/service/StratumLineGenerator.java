@@ -10,7 +10,10 @@ public class StratumLineGenerator {
     private DrillPointReader drillPointReader = new DrillPointReader();
     private DrillStratumReader drillStratumReader = new DrillStratumReader();
     private Section section = new Section();
-    private Connector connector = new Connector();
+
+    // Connector的两种实现
+    private Connector connector = new CheckRuleConnector();
+    // connector = new MaxMatchConnector();
 
     // 建立钻孔和地层的逻辑模型
     public List<DrillPoint> generatedrillPointList(String[] ids) {
