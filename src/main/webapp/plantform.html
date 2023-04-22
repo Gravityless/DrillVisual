@@ -24,31 +24,35 @@
 </nav>
 
 <!-- 主体内容区域 -->
-<section class="data-visualization">
-  <h2>研究区域</h2>
-  <div class="draw-polygon">
-    <label style="font-weight: bold;">
-      几何图形类型：
-    </label>
-    <select id="type">
-      <option value="None" selected="selected">无</option>
-      <option value="Point">点</option>
-      <option value="LineString">线</option>
-      <option value="Polygon">多边形</option>
-    </select>
-    <button class="tool-button" id="draw-element" onclick="drawVector()">绘制</button>
-  </div>
+<div id="main">
+  <section class="data-visualization">
+    <h2>研究区域</h2>
+    <div class="draw-polygon">
+      <label style="font-weight: bold;">
+        几何图形类型：
+      </label>
+      <select id="type">
+        <option value="None" selected="selected">无</option>
+        <option value="Point">点</option>
+        <option value="LineString">线</option>
+        <option value="Polygon">多边形</option>
+      </select>
+      <button class="tool-button" id="draw-element" onclick="drawVector()">绘制</button>
+    </div>
 
-  <div id="mapDiv" class="visual-content"></div>
-</section>
-<section class="data-visualization">
-  <h3>剖面图结果</h3>
-  <div id="dataDiv" class="visual-content"></div>
-</section>
-<div id="wrapper">
-  <div id="location"></div>
-  <div id="scale">比例尺：1:</div>
+    <div id="mapDiv" class="visual-content"></div>
+  </section>
+  <section class="data-visualization">
+    <h3>剖面图结果</h3>
+    <div id="dataDiv" class="visual-content"></div>
+  </section>
+
+  <div id="wrapper">
+    <div id="location"></div>
+    <div id="scale">比例尺：1:</div>
+  </div>
 </div>
+
 <div id="pointtable"></div>
 
 
@@ -123,7 +127,7 @@
 
   map.on('singleclick',function (evt){
     if (isdraw){
-      //console.log(evt.coordinate)
+      console.log(evt.coordinate)
       json.push(evt.coordinate)
     }
   })

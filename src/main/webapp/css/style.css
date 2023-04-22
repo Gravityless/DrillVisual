@@ -7,6 +7,10 @@ html,body{
     width: 100%;
     height: 100%;
 }
+/*重定向按钮样式*/
+a.redirect{
+
+}
 /* 导航栏样式 */
 nav {
     background-color: #fff;
@@ -52,7 +56,11 @@ nav {
 }
 
 /* 主体内容区域样式 */
-
+#main{
+    width: 100%;
+    height: 100%;
+    margin:0px;
+}
 h2 {
     font-size: 28px;
     font-weight: bold;
@@ -61,13 +69,14 @@ h2 {
 section {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 24px;
-    margin:30px auto;
+    margin:20px;
     border-radius: 4px;
-    width:50%;
+    width:40%;
     height:70%;
     border:1px solid black;
+    float:left;
     border-radius: 5%;
-    position: relative;
+    display:inline-block;
 }
 section #mapDiv{
     cursor:pointer;
@@ -78,7 +87,8 @@ section .visual-content{
 }
  div#wrapper{
     height: 50px;
-     width: 50%;
+     width: 100%;
+     padding:20px;
      margin:5px auto;
 }
  div#wrapper #location{
@@ -88,17 +98,17 @@ section .visual-content{
  div#wrapper #scale{
      line-height: 50px;
      float: right;
+     position: relative;
+     right:60%;
  }
  div#pointtable{
-     height: 500px;
-     width: 400px;
-     position: absolute;
-     right:0px;
-     top:25%;
+     height: 200px;
+     width: 500px;position: relative;
+     bottom: 150px;
  }
 div#pointtable iframe{
-    height: 500px;
-    width: 400px;
+    height: 200px;
+    width: 500px;
 }
 .form-control {
     display: block;
@@ -146,7 +156,7 @@ footer {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     font-size: 14px;
 }

@@ -59,12 +59,4 @@ map.on('singleclick', function(evt) {
     if (url) {
         document.getElementById('pointtable').innerHTML = '<iframe seamless src="' + url + '"></iframe>';
     }
-    if (url) {
-        fetch(url)
-            .then(function (response) { return response.text(); })
-            .then(function (html) {
-                console.log(html);
-                //document.getElementById('info').innerHTML = html;
-            });
-    }
 });
