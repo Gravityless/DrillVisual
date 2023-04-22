@@ -37,17 +37,22 @@ function plotcht(request){
             var arcNum = result.layerLineList.length;
             var arcList = result.layerLineList;
             // 连接地层线
+            var dat={};//制作highcharts所需的数据
             for (idx = 0; idx < arcNum; idx++) {
                 var line = {
                     data:[
-                        [xArray[arcList[idx].columnIndex], [arcList[idx].depthLeft]],
-                        [xArray[arcList[idx].columnIndex + 1], [arcList[idx].depthRight]]
+                        [xArray[arcList[idx].columnIndex], arcList[idx].depthLeft],
+                        [xArray[arcList[idx].columnIndex + 1], arcList[idx].depthRight]
                     ],
                     type: 'line',
                     name: arcList[idx].stratumId,
                     // areaStyle: {}
                 };
-                // alert(line.data);
+                if (dat[line.name]===undefined){
+                    dat[line.name]=[];//push 第一段弧的左端点
+                }
+                dat[line.name].push(line['data'][0]);//push 每段弧的右端点
+                dat[line.name].push(line['data'][1]);//push 每段弧的右端点
                 seriesArray.push(line);
                 if (!legendArray.includes(arcList[idx].stratumId))
                     legendArray.push(arcList[idx].stratumId);
@@ -67,29 +72,41 @@ function plotcht(request){
                 seriesArray.push(line);
             }
 
+            var drawdat=[];
+            for (var nm in dat) {
+                //console.log(nm + "=" + dat[nm]);
+                drawdat.push({name:nm,data:dat[nm]})
+            }
             // 指定图表的配置项
-            option = {
-                legend: {
-                    // Try 'horizontal'
-                    data: legendArray,
-                    orient: 'horizontal',
-                    right: 0,
-                    top: 'bottom'
+            var cht= {
+                chart: {
+                    type: 'line'
                 },
-                xAxis: {
-                    // show:false,//不显示坐标轴线、坐标轴刻度线和坐标轴上的文字
-                    axisTick:{
-                        show:false//不显示坐标轴刻度线
-                    },
-                    axisLine: {
-                        show: false,//不显示坐标轴线
-                    },
+                title: {
+                    text: '地层连线剖面图',
+                    align: 'left'
                 },
-                yAxis: {},
-                series: seriesArray
+                yAxis: {
+                    title: {
+                        useHTML: true,
+                        text: '地层深度',
+                    }
+                },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal',
+                        lineColor: '#666666',
+                        lineWidth: 1,
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#666666'
+                        }
+                    }
+                },
+                series: drawdat,
             };
-            // 使用刚指定的配置项和数据显示图表
-            myChart.setOption(option);
+            console.log(cht['series'])
+            $('#dataDiv').highcharts(cht);
         })
         .catch(function (error) {
             console.log(error);
