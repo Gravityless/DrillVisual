@@ -17,8 +17,7 @@
   </div>
   <ul class="nav-links">
     <li><a href="http://localhost/DrillVisual/index.html">首页</a></li>
-    <li><a href="http://localhost/DrillVisual/plantform.html">数据分析</a></li>
-    <li><a href="http://localhost/DrillVisual/datachart.html">可视化展示</a></li>
+    <li><a href="http://localhost/DrillVisual/plantform.html">数据可视化</a></li>
     <li><a href="#">报告导出</a></li>
     <li><a href="#">设置</a></li>
   </ul>
@@ -42,6 +41,10 @@
 
   <div id="mapDiv" class="visual-content"></div>
 </section>
+<section class="data-visualization">
+  <h3>剖面图结果</h3>
+  <div id="dataDiv" class="visual-content"></div>
+</section>
 <div id="wrapper">
   <div id="location"></div>
   <div id="scale">比例尺：1:</div>
@@ -50,7 +53,7 @@
 
 
 <script src="./js/drawMap.js"></script>
-
+<script src="./js/plotChart.js"></script>
 <!-- 页脚 -->
 <footer>
   <div class="footer-links">
@@ -104,12 +107,13 @@
         isdraw=true;
       })
 
-      draw.on('drawend',function (evt){
+      draw.on('drawend',async function (evt){
         isdraw=false;
         var xy=document.querySelector("#wrapper #location .custom-mouse-position").innerHTML;
         xy=xy.split(',');xy[0]=parseFloat(xy[0]);xy[1]=parseFloat(xy[1])
         json.push(xy);
         console.log(json);
+        await plotcht(json);
         json=[];
       })
     }
