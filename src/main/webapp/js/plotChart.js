@@ -21,7 +21,10 @@ function plotcht(request){
             var xArray = [];
             var seriesArray = [];
             var legendArray = [];
-
+            //比较两个点是否重合
+            function comparepoint(x,y){
+                return Math.abs(x[0]-y[0])<1e-6 && Math.abs(x[1]-y[1])<1e-6
+            }
             // 计算xArray
             var idx, sum;
             sum = 0;
@@ -30,14 +33,13 @@ function plotcht(request){
                 sum += result.drillDistance[idx];
             }
             xArray[idx] = sum;
-            // alert(xArray);
 
             // 计算seriesArray
             var colNum = result.drillDistance.length + 1;
             var arcNum = result.layerLineList.length;
             var arcList = result.layerLineList;
             // 连接地层线
-            var dat={};//制作highcharts所需的数据
+            var drawdat=[];//若干地层线组成的数组,每一项对应一条线，有name和data两个属性
             for (idx = 0; idx < arcNum; idx++) {
                 var line = {
                     data:[
@@ -48,16 +50,30 @@ function plotcht(request){
                     name: arcList[idx].stratumId,
                     // areaStyle: {}
                 };
-                if (dat[line.name]===undefined){
-                    dat[line.name]=[];//push 第一段弧的左端点
+                var found=false
+                for (var it=0;it<drawdat.length;++it){//将当前线段与drawdat里的同名线匹配，若能连接，则加入
+                    if (drawdat[it].name===line.name){
+                        for (var left=0;left<drawdat[it].data.length;++left){
+                            if (comparepoint(drawdat[it].data[left],line['data'][0])){
+                                if (left===drawdat[it].data.length-1){
+                                    drawdat[it].data.push(line['data'][1])
+                                    found=true
+                                    break
+                                }else{
+                                    newdat=drawdat[it];
+                                    newdat.data=drawdat[it].data.slice(0,left+1)
+                                    drawdat.push(newdat)
+                                }
+                            }
+                        }
+                    }
                 }
-                dat[line.name].push(line['data'][0]);//push 每段弧的右端点
-                dat[line.name].push(line['data'][1]);//push 每段弧的右端点
-                seriesArray.push(line);
-                if (!legendArray.includes(arcList[idx].stratumId))
-                    legendArray.push(arcList[idx].stratumId);
+                if (!found){
+                    drawdat.push({name:line.name,data:line.data})
+                }
             }
             // 连接钻孔线
+            drawdat.push({name:'Drill',data:[]})
             for (idx = 0; idx < colNum; idx++) {
                 var height = result.drillPointList[idx].drillHeight;
                 var depth = result.drillPointList[idx].drillDepth;
@@ -69,14 +85,11 @@ function plotcht(request){
                     type: 'line',
                     name: 'Drill'
                 };
-                seriesArray.push(line);
+                drawdat[drawdat.length-1].data.push([xArray[idx], height]) //将钻孔点push进绘制数组中，中间用-隔开，避免不同列钻孔相连
+                drawdat[drawdat.length-1].data.push([xArray[idx], height-depth])
+                drawdat[drawdat.length-1].data.push('-')
             }
 
-            var drawdat=[];
-            for (var nm in dat) {
-                //console.log(nm + "=" + dat[nm]);
-                drawdat.push({name:nm,data:dat[nm]})
-            }
             // 指定图表的配置项
             var cht= {
                 chart: {
