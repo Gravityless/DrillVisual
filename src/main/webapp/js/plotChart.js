@@ -19,11 +19,25 @@ function plotcht(request){
             var myChart = echarts.init(document.getElementById("dataDiv"));
             // 指定数据xArray, seriesArray, legendArray
             var xArray = [];
-            var seriesArray = [];
-            var legendArray = [];
             //比较两个点是否重合
             function comparepoint(x,y){
                 return Math.abs(x[0]-y[0])<1e-6 && Math.abs(x[1]-y[1])<1e-6
+            }
+            function havesamex(pts,x){
+                return Math.abs(pts[0]-x)<1e-6
+            }
+            function findymax(x,ymin){
+                ymax=undefined
+                for (var pts of points){
+                    if (havesamex(pts,x) && pts[1]>ymin ){
+                        if (ymax==undefined){
+                            ymax=pts[1]
+                        }else{
+                            ymax=Math.min(pts[1],ymax);
+                        }
+                    }
+                }
+                return ymax;
             }
             // 计算xArray
             var idx, sum;
@@ -40,6 +54,7 @@ function plotcht(request){
             var arcList = result.layerLineList;
             // 连接地层线
             var drawdat=[];//若干地层线组成的数组,每一项对应一条线，有name和data两个属性
+            points=[]//储存所有点
             for (idx = 0; idx < arcNum; idx++) {
                 var line = {
                     data:[
@@ -50,6 +65,8 @@ function plotcht(request){
                     name: arcList[idx].stratumId,
                     // areaStyle: {}
                 };
+                points.push(line.data[0])
+                points.push(line.data[1])
                 var found=false
                 for (var it=0;it<drawdat.length;++it){//将当前线段与drawdat里的同名线匹配，若能连接，则加入
                     if (drawdat[it].name===line.name){
@@ -72,28 +89,42 @@ function plotcht(request){
                     drawdat.push({name:line.name,data:line.data})
                 }
             }
-            // 连接钻孔线
-            drawdat.push({name:'Drill',data:[]})
-            for (idx = 0; idx < colNum; idx++) {
-                var height = result.drillPointList[idx].drillHeight;
-                var depth = result.drillPointList[idx].drillDepth;
-                var line = {
-                    data:[
-                        [xArray[idx], height],
-                        [xArray[idx], height - depth]
-                    ],
-                    type: 'line',
-                    name: 'Drill'
-                };
-                drawdat[drawdat.length-1].data.push([xArray[idx], height]) //将钻孔点push进绘制数组中，中间用-隔开，避免不同列钻孔相连
-                drawdat[drawdat.length-1].data.push([xArray[idx], height-depth])
-                drawdat[drawdat.length-1].data.push('-')
+            for (var ii=0;ii<drawdat.length;++ii){
+                var line=drawdat[ii]
+                var n=line.data.length
+                for (var i=0;i<n;++i){
+                    var xx=line.data[i][0];
+                    var ymin=line.data[i][1];
+                    xx=xx.toString();
+                    line.data[i].push(findymax(xx,ymin))
+                }
             }
+            for (var ii=0;ii<drawdat.length;++ii){//后处理，去掉未被填充的线
+                if (drawdat[ii].data[0][2]===undefined){
+                    drawdat.splice(ii,1);
+                    --ii;
+                }
+            }
+            for (var ii=0;ii<drawdat.length;++ii){//后处理，去掉重复的图例
+                for (var jj=ii+1;jj<drawdat.length;++jj){
+                    if (drawdat[jj].name===drawdat[ii].name){
+                        drawdat[ii].data.push('-')
+                        for (var kk of drawdat[jj].data){
+                            drawdat[ii].data.push(kk)
+                        }
+                        drawdat.splice(jj,1);
+                        --jj;
+                    }
+
+                }
+            }
+            console.log('drawdat='+drawdat)
+            // 连接钻孔线
 
             // 指定图表的配置项
             var cht= {
-                chart: {
-                    type: 'line'
+                chart:{
+                    type:'arearange',
                 },
                 title: {
                     text: '地层连线剖面图',
@@ -116,7 +147,7 @@ function plotcht(request){
                         }
                     }
                 },
-                series: drawdat,
+                series: drawdat
             };
             console.log(cht['series'])
             $('#dataDiv').highcharts(cht);
