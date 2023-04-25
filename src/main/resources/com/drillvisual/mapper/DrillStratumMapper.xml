@@ -22,6 +22,6 @@
         select * from "EngGeo_Exp_Drill_Layer_RockSoil" where DrillLayer_RockSoil_ID = #{id};
     </select>
     <select id="selectByDrillId" resultMap="drillStratumResultMap">
-        select * from "EngGeo_Exp_Drill_Layer_RockSoil" where Drill_ID = #{id};
+        select * from "EngGeo_Exp_Drill_Layer_RockSoil" where Drill_ID = #{id} order by DLRS_Depth_Surface_Top;
     </select>
 </mapper>

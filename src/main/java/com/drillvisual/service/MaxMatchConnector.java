@@ -17,12 +17,8 @@ public class MaxMatchConnector implements Connector{
         // 结束递归条件
         if (leftEnd == leftStart && rightEnd == rightStart)
             return;
-        else if (leftEnd == leftStart) {
-            link2left(idx, leftStart, leftEnd, rightStart, rightEnd);
-            return;
-        }
-        else if (rightEnd == rightStart) {
-            link2right(idx, leftStart, leftEnd, rightStart, rightEnd);
+        else if (leftEnd == leftStart || rightEnd == rightStart) {
+            link(idx, leftStart, leftEnd, rightStart, rightEnd);
             return;
         }
         // 获取地层id列表

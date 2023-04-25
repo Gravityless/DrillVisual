@@ -5,6 +5,7 @@
     <title>数据可视化平台</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/echarts.min.js"></script>
+    <script src="js/axios.js"></script>
     <link rel="stylesheet" href="https://openlayers.org/en/v3.20.1/css/ol.css" type="text/css">
     <script src="https://openlayers.org/en/v3.20.1/build/ol.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -24,6 +25,41 @@
     </ul>
 </nav>
 
+<!-- 主体内容区域 -->
+<div id="main">
+    <section class="data-visualization">
+        <h2>研究区域</h2>
+        <div class="draw-polygon">
+            <label style="font-weight: bold;">
+                几何图形类型：
+            </label>
+            <select id="type">
+                <option value="None" selected="selected">无</option>
+                <option value="Point">点</option>
+                <option value="LineString">线</option>
+                <option value="Polygon">多边形</option>
+            </select>
+            <button class="tool-button" id="draw-element" onclick="drawVector()">绘制</button>
+        </div>
+
+        <div id="mapDiv" class="visual-content"></div>
+    </section>
+    <section class="data-visualization">
+        <h3>剖面图结果</h3>
+        <div id="dataDiv" class="visual-content"></div>
+    </section>
+
+    <div id="wrapper">
+        <div id="location"></div>
+        <div id="scale">比例尺：1:</div>
+    </div>
+</div>
+
+<div id="pointtable"></div>
+
+
+<script src="./js/drawMap.js"></script>
+<script src="./js/oldPlotChart.js"></script>
 <!-- 页脚 -->
 <footer>
     <div class="footer-links">
@@ -37,5 +73,79 @@
         <p>© 2023 NJU-GEO. All Rights Reserved.</p>
     </div>
 </footer>
+<script type="text/javascript">
+  var typeSelect = document.getElementById('type');
+  var draw;
+  var typeValue;
+  var isdraw=false;
+  var json = [];
+  var source = new ol.source.Vector();
+  // 设置样式
+  var vectorLayer = new ol.layer.Vector({
+    source: source,
+    style: new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: '#0055ff'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#00c033',
+        width: 2
+      }),
+      image: new ol.style.Circle({
+        radius: 7,
+        fill: new ol.style.Fill({
+          color: '#00c033'
+        })
+      })
+    })
+
+  })
+  map.addLayer(vectorLayer);
+
+  function addInteraction(typeValue) {
+    draw = new ol.interaction.Draw({
+      source: source,
+      snapTolerance: 12,
+      type: typeValue
+    });
+    if (typeValue=='LineString'){
+      draw.on('drawstart',function (){
+        isdraw=true;
+      })
+
+      draw.on('drawend',async function (evt){
+        isdraw=false;
+        var xy=document.querySelector("#wrapper #location .custom-mouse-position").innerHTML;
+        xy=xy.split(',');xy[0]=parseFloat(xy[0]);xy[1]=parseFloat(xy[1])
+        json.push(xy);
+        console.log(json);
+        await plotcht(json);
+        json=[];
+      })
+    }
+
+    map.addInteraction(draw);
+  }
+
+  map.on('singleclick',function (evt){
+    if (isdraw){
+      console.log(evt.coordinate)
+      json.push(evt.coordinate)
+    }
+  })
+
+  // 点击事件方法
+  function drawVector() {
+    typeValue = typeSelect.value;
+    if (typeValue !== 'None') {
+      map.removeInteraction(draw);
+      addInteraction(typeValue);
+    } else {
+      // The callback method clears
+      map.removeInteraction(draw);
+      source.clear()
+    }
+  }
+</script>
 </body>
 </html>

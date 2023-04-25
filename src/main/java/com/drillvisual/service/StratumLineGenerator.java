@@ -42,7 +42,7 @@ public class StratumLineGenerator {
     public List<DrillPoint> getDrillPiontList(Double[][] xys) {
         List<DrillPoint> drillPointList = new ArrayList<DrillPoint>();
         for (Double[] xy: xys) {
-            System.out.println("Query: " + Arrays.toString(xy));
+            // System.out.println("Query: " + Arrays.toString(xy));
             // 调用Service层完成查询钻孔ID
             DrillPoint drillPoint = drillPointReader.selectByXY(xy);
             drillPointList.add(drillPoint);

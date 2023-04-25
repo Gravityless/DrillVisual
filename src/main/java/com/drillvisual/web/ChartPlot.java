@@ -39,7 +39,6 @@ public class ChartPlot extends HttpServlet {
         // 将JSON数组转换为字符串数组
         // String[] drillPoints = JSON.parseObject(reqBody, String[].class);
         Double[][] drillPoints = JSON.parseObject(reqBody, Double[][].class);
-        System.out.println(drillPoints[0][0]);
         // 从Generator获取计算结果
         if (drillPoints != null) {
             // 获取sectionPloter对象
