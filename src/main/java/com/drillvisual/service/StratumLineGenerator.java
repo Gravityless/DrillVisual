@@ -1,6 +1,7 @@
 package com.drillvisual.service;
 
 import com.drillvisual.pojo.*;
+import javafx.beans.binding.DoubleExpression;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,6 +80,17 @@ public class StratumLineGenerator {
         return drillDistance;
     }
 
+    public List<Double> computePosition(List<Double> drillDistanceList) {
+        List<Double> drillPosition = new ArrayList<>();
+        Double pos = .0;
+        for (int i = 0; i < drillDistanceList.size(); i++) {
+            drillPosition.add(pos);
+            pos += drillDistanceList.get(i);
+        }
+        drillPosition.add(pos);
+        return drillPosition;
+    }
+
     // 生成地层线的总方法
     public Section generate(String[] ids) {
         // 生成钻孔线
@@ -91,6 +103,7 @@ public class StratumLineGenerator {
         section.setDrillPointList(drillPointList);
         section.setLayerLineList(layerLineList);
         section.setDrillDistance(drillDistanceList);
+
         return section;
     }
 
@@ -101,10 +114,13 @@ public class StratumLineGenerator {
         List<LayerLine> layerLineList = generateLayerLineList(drillPointList);
         // 计算钻孔间距
         List<Double> drillDistanceList = computeDistance(drillPointList);
+        // 计算钻孔横坐标
+        List<Double> drillPositionList = computePosition(drillDistanceList);
         // 设置剖面模型
         section.setDrillPointList(drillPointList);
         section.setLayerLineList(layerLineList);
         section.setDrillDistance(drillDistanceList);
+        section.setDrillPosition(drillPositionList);
         return section;
     }
 }

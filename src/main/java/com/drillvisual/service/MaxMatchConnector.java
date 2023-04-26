@@ -84,6 +84,9 @@ public class MaxMatchConnector implements Connector{
             layerLine.setStratumId(stratumLeft.getStratumId());
             layerLine.setDepthLeft(drillPointList.get(idx).getDrillHeight() - stratumLeft.getBottomDepth());
             layerLine.setDepthRight(drillPointList.get(idx + 1).getDrillHeight() - stratumRight.getBottomDepth());
+            layerLine.setDrillStratumIdLeft(stratumLeft.getDrillStratumId());
+            layerLine.setDrillStratumIdRight(stratumRight.getDrillStratumId());
+            layerLine.setType("EqualLen");
             layerLineList.add(layerLine);
         }
     }
@@ -101,6 +104,9 @@ public class MaxMatchConnector implements Connector{
             layerLine.setStratumId(stratumRight.getStratumId());
             layerLine.setDepthLeft(drillPointList.get(idx).getDrillHeight() - stratumLeft.getBottomDepth());
             layerLine.setDepthRight(drillPointList.get(idx + 1).getDrillHeight() - stratumRight.getBottomDepth());
+            layerLine.setDrillStratumIdLeft("PinchOut");
+            layerLine.setDrillStratumIdRight(stratumRight.getDrillStratumId());
+            layerLine.setType("PinchOutLeft");
             layerLineList.add(layerLine);
         }
     }
@@ -118,6 +124,9 @@ public class MaxMatchConnector implements Connector{
             layerLine.setStratumId(stratumLeft.getStratumId());
             layerLine.setDepthLeft(drillPointList.get(idx).getDrillHeight() - stratumLeft.getBottomDepth());
             layerLine.setDepthRight(drillPointList.get(idx + 1).getDrillHeight() - stratumRight.getBottomDepth());
+            layerLine.setDrillStratumIdLeft(stratumLeft.getDrillStratumId());
+            layerLine.setDrillStratumIdRight("PinchOut");
+            layerLine.setType("PinchOutRight");
             layerLineList.add(layerLine);
         }
     }
@@ -136,10 +145,8 @@ public class MaxMatchConnector implements Connector{
         }
     }
 
-    // 后处理
-    public void postProcess() {
-        // 处理边界连线
-        // 将最顶层连接在一起
+    // 将最顶层连接在一起
+    public void linkSurface() {
         for (int i = 0; i < drillPointList.size() - 1; i++) {
             // 设置layerLine基本属性
             LayerLine layerLine = new LayerLine();
@@ -157,9 +164,15 @@ public class MaxMatchConnector implements Connector{
             // 连接顶板高度绝对坐标
             layerLine.setDepthLeft(drillPointList.get(i).getDrillHeight());
             layerLine.setDepthRight(drillPointList.get(i + 1).getDrillHeight());
+            layerLine.setType("Surface");
             // 添加到地层线表
             layerLineList.add(layerLine);
         }
+    }
+
+    // 后处理
+    public void postProcess() {
+         linkSurface();
     }
 
     public void connect(List<LayerLine> layerLineList, List<DrillPoint> drillPointList) {

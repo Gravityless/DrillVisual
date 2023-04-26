@@ -35,5 +35,8 @@
 ## 后端返回数据如下图：
 ![SectionPloter数据结构](section.jpg)
 
+## PolygonList字段说明
+![PolygonList数据结构](polygonfield.png)
+
 ## 注意：
     geoserver需要开启跨域，解决方案https://blog.csdn.net/xinleicol/article/details/118308342

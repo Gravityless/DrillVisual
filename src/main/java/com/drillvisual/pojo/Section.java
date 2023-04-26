@@ -11,6 +11,14 @@ public class Section {
         this.layerLineList = layerLineList;
     }
 
+    public List<Double> getDrillPosition() {
+        return drillPosition;
+    }
+
+    public void setDrillPosition(List<Double> drillPosition) {
+        this.drillPosition = drillPosition;
+    }
+
     public List<DrillPoint> getDrillPointList() {
         return drillPointList;
     }
@@ -27,16 +35,28 @@ public class Section {
         this.drillPointList = drillPointList;
     }
 
+    public List<LayerPolygon> getLayerPolygonList() {
+        return layerPolygonList;
+    }
+
+    public void setLayerPolygonList(List<LayerPolygon> layerPolygonList) {
+        this.layerPolygonList = layerPolygonList;
+    }
+
     @Override
     public String toString() {
         return "Section{" +
-                "drillPointList=" + drillPointList +
+                "drillDistance=" + drillDistance +
+                ", drillPosition=" + drillPosition +
+                ", drillPointList=" + drillPointList +
                 ", layerLineList=" + layerLineList +
-                ", drillDistance=" + drillDistance +
+                ", layerPolygonList=" + layerPolygonList +
                 '}';
     }
 
+    public List<Double> drillDistance;
+    public List<Double> drillPosition;
     public List<DrillPoint> drillPointList;
     public List<LayerLine> layerLineList;
-    public List<Double> drillDistance;
+    public List<LayerPolygon> layerPolygonList;
 }

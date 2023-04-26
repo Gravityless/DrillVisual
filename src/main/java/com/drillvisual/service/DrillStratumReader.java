@@ -21,7 +21,7 @@ public class DrillStratumReader {
         // 释放连接
         sqlSession.close();
         // 打印查询结果
-        System.out.println(drillStratum);
+        // System.out.println(drillStratum);
         // 返回结果
         return drillStratum;
     }
@@ -36,7 +36,7 @@ public class DrillStratumReader {
         // 释放连接
         sqlSession.close();
         // 打印查询结果
-        System.out.println(drillStratums);
+        // System.out.println(drillStratums);
         // 返回结果
         return drillStratums;
     }

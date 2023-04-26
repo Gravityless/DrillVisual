@@ -35,6 +35,29 @@ public class LayerLine {
         this.depthRight = depthRight;
     }
 
+    public String getDrillStratumIdLeft() {
+        return drillStratumIdLeft;
+    }
+
+    public void setDrillStratumIdLeft(String drillStratumIdLeft) {
+        this.drillStratumIdLeft = drillStratumIdLeft;
+    }
+
+    public String getDrillStratumIdRight() {
+        return drillStratumIdRight;
+    }
+
+    public void setDrillStratumIdRight(String drillStratumIdRight) {
+        this.drillStratumIdRight = drillStratumIdRight;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     @Override
     public String toString() {
@@ -43,13 +66,17 @@ public class LayerLine {
                 ", stratumId='" + stratumId + '\'' +
                 ", depthLeft=" + depthLeft +
                 ", depthRight=" + depthRight +
+                ", drillStratumIdLeft='" + drillStratumIdLeft + '\'' +
+                ", drillStratumIdRight='" + drillStratumIdRight + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 
     private int columnIndex;
     private String stratumId;
-    // private DrillPoint drillPointLeft;
-    // private DrillPoint drillPointRight;
     private double depthLeft;
     private double depthRight;
+    private String drillStratumIdLeft;
+    private String drillStratumIdRight;
+    private String type;
 }

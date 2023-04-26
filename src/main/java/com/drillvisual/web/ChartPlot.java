@@ -2,6 +2,7 @@ package com.drillvisual.web;
 
 import com.alibaba.fastjson.JSON;
 import com.drillvisual.pojo.Section;
+import com.drillvisual.service.PolygonGenerator;
 import com.drillvisual.service.StratumLineGenerator;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class ChartPlot extends HttpServlet {
     // 创建Service层对象
     private StratumLineGenerator stratumLineGenerator = new StratumLineGenerator();
+    private PolygonGenerator polygonGenerator = new PolygonGenerator();
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // 字符串数组方式获取多个参数
         // String[] drillIds = req.getParameterValues("drillId");
@@ -35,21 +37,23 @@ public class ChartPlot extends HttpServlet {
         }
         reader.close();
         String reqBody = builder.toString();
-        System.out.println(reqBody);
+        System.out.println("DEBUG >>> Request array: " + reqBody);
         // 将JSON数组转换为字符串数组
         // String[] drillPoints = JSON.parseObject(reqBody, String[].class);
         Double[][] drillPoints = JSON.parseObject(reqBody, Double[][].class);
         // 从Generator获取计算结果
         if (drillPoints != null) {
-            // 获取sectionPloter对象
+            // 生成地层线
             Section section = stratumLineGenerator.generate(drillPoints);
+            // 生成地层面
+            polygonGenerator.generate(section);
             // 向Response中写入数据
             res.getWriter().write(JSON.toJSONString(section));
         }
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        System.out.println("doPost");
+        // System.out.println("doPost");
         this.doGet(req, res);
     }
 }

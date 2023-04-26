@@ -18,7 +18,7 @@ public class DrillPointReader {
         // 释放连接
         sqlSession.close();
         // 打印查询结果
-        System.out.println(drillPoint);
+        // System.out.println(drillPoint);
         // 返回结果
         return drillPoint;
     }
@@ -33,7 +33,7 @@ public class DrillPointReader {
         // 释放连接
         sqlSession.close();
         // 打印查询结果
-        System.out.println(drillPoint);
+        // System.out.println(drillPoint);
         // 返回结果
         return drillPoint;
     }
