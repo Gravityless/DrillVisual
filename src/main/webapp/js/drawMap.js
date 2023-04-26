@@ -48,15 +48,16 @@ map.getView().on('change:resolution', function(evt) {
     }
     document.getElementById('scale').innerHTML = "比例尺：1:" + scale;
 });
-map.on('singleclick', function(evt) {
-    document.getElementById('pointtable').innerHTML = "Loading... please wait...";
-    var view = map.getView();
-    var viewResolution = view.getResolution();
-    var source = tiled[0].getSource();
-    var url = source.getGetFeatureInfoUrl(
-        evt.coordinate, viewResolution, view.getProjection(),
-        {'INFO_FORMAT': 'text/html', 'FEATURE_COUNT': 50});
-    if (url) {
-        document.getElementById('pointtable').innerHTML = '<iframe seamless src="' + url + '"></iframe>';
-    }
-});
+// 从GeoServer服务获取选中数据
+// map.on('singleclick', function(evt) {
+//     document.getElementById('pointtable').innerHTML = "Loading... please wait...";
+//     var view = map.getView();
+//     var viewResolution = view.getResolution();
+//     var source = tiled[0].getSource();
+//     var url = source.getGetFeatureInfoUrl(
+//         evt.coordinate, viewResolution, view.getProjection(),
+//         {'INFO_FORMAT': 'text/html', 'FEATURE_COUNT': 50});
+//     if (url) {
+//         document.getElementById('pointtable').innerHTML = '<iframe seamless src="' + url + '"></iframe>';
+//     }
+// });

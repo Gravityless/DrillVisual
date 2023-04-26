@@ -6,16 +6,36 @@ function plotcht(request){
             console.log("response from server:"+response)
             // 这里获取返回数据
             var result = response.data;
-            //若干地层面组成的数组，有name和data两个属性
+            // 若干地层面组成的数组，有name和data两个属性
             var drawdat = [];
             var polygonList = result.layerPolygonList;
-            for (i = 0; i < polygonList.length; i++) {
-                var polygon = {
-                    data: polygonList[i].data,
-                    name: polygonList[i].stratumId
-                };
-                drawdat.push(polygon);
-            }
+            // 不合并图例
+            // for (i = 0; i < polygonList.length; i++) {
+            //     var polygon = {
+            //         data: polygonList[i].data,
+            //         name: polygonList[i].stratumId
+            //     };
+            //     drawdat.push(polygon);
+            // }
+            // 合并图例
+             for (i = 0; i < polygonList.length; i++) {
+                 var added = 0;
+                 for (j = 0; j < drawdat.length; j++) {
+                     if (drawdat[j].name == polygonList[i].stratumId) {
+                         drawdat[j].data.push('-');
+                         for (var data of polygonList[i].data)
+                            drawdat[j].data.push(data);
+                         added = 1;
+                     }
+                 }
+                 if (added == 0) {
+                     var polygon = {
+                         data: polygonList[i].data,
+                         name: polygonList[i].stratumId
+                     };
+                     drawdat.push(polygon);
+                 }
+             }
 
             // 指定图表的配置项
             var cht= {
