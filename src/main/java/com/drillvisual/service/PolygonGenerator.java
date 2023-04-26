@@ -72,8 +72,8 @@ public class PolygonGenerator {
         List<Double[]> dataList = new ArrayList<>();
         dataList.add(dataLeft);
         dataList.add(dataRight);
-        System.out.println("DEBUG >>> Data Left: " + Arrays.toString(dataLeft));
-        System.out.println("DEBUG >>> Data Right: " + Arrays.toString(dataRight));
+        System.out.println("DEBUG >>> New polygon, data left: " + Arrays.toString(dataLeft));
+        System.out.println("DEBUG >>> New polygon, data right: " + Arrays.toString(dataRight));
         layerPolygon.setStratumId(layerLine.getStratumId());
         layerPolygon.setData(dataList);
         return layerPolygon;
@@ -138,6 +138,8 @@ public class PolygonGenerator {
                 Double[] layerlineLeft = {drillPosition.get(index), layerLine.getDepthLeft()};
                 // 若匹配成功，则按照地层线类型扩展地层面
                 if (samePoint(layerlineLeft, polygonRight)) {
+                    System.out.println("DEBUG >>> Match polygon, data left: " + Arrays.toString(layerlineLeft));
+                    System.out.println("DEBUG >>> Match polygon, data right: " + Arrays.toString(polygonRight));
                     extendPolygon(layerLine, curPolygon);
                     added = true;
                 }

@@ -15,10 +15,17 @@ public class MaxMatchConnector implements Connector{
     // 最大匹配
     public void maxMatch(int idx, int leftStart, int leftEnd, int rightStart, int rightEnd) {
         // 结束递归条件
+        // 完全匹配结束
         if (leftEnd == leftStart && rightEnd == rightStart)
             return;
+        // 地层左尖灭或右尖灭
         else if (leftEnd == leftStart || rightEnd == rightStart) {
             link(idx, leftStart, leftEnd, rightStart, rightEnd);
+            return;
+        // 地层间断缺失
+        } else if (leftEnd - leftStart == 1 && rightEnd - rightStart == 1) {
+            link2right(idx, leftStart, leftEnd, rightEnd, rightEnd);
+            link2left(idx, leftStart, leftStart, rightStart, rightEnd);
             return;
         }
         // 获取地层id列表
@@ -55,6 +62,8 @@ public class MaxMatchConnector implements Connector{
         // 连接最大匹配
         link(idx, leftMatchBegin, leftMatchEnd, rightMatchBegin, rightMatchEnd);
         // 递归未匹配段
+        // System.out.println("DEBUG >>> LS: " + leftStart + " LMB: " + leftMatchBegin + " RS: " + rightStart + " RMB: " + rightMatchBegin);
+        // System.out.println("DEBUG >>> LE: " + leftEnd + " LME: " +rightMatchEnd + " RE: " + rightEnd + " RME: " + rightMatchEnd);
         maxMatch(idx, leftStart, leftMatchBegin, rightStart, rightMatchBegin);
         maxMatch(idx, leftMatchEnd, leftEnd, rightMatchEnd, rightEnd);
     }
