@@ -36,20 +36,40 @@ function plotcht(request){
                      drawdat.push(polygon);
                  }
              }
-
+             var patts=Highcharts.patterns;//默认仅有10个pattern，再生成10个加入patts
+             for (var i=0;i<10;++i){
+                 var tmppatts=Object.assign({},patts[i])
+                 tmppatts.color=patts[(i+1)%10].color; //取第i个的符号与第i+1个的颜色
+                 patts.push(tmppatts);
+             }
+             for (var i=0;i<drawdat.length;++i){
+                 drawdat[i].color={pattern:patts[i]}
+             }
             // 指定图表的配置项
             var cht= {
                 chart:{
                     type:'arearange',
+                    style:{
+                        fontFamily: "宋体",
+                    }
                 },
                 title: {
                     text: '地层连线剖面图',
-                    align: 'left'
+                    align: 'center'
+                },
+                xAxis:{
+                  title:{
+                      text:'水平距离(m)'
+                  }
                 },
                 yAxis: {
+                    max:10.0,
+                    min:-60.0,
+                    gridLineWidth: 0,
+                    minorGridLineWidth: 0,
+                    tickInterval: 10,
                     title: {
-                        useHTML: true,
-                        text: '地层深度',
+                        text: '地层深度(m)',
                     }
                 },
                 plotOptions: {
@@ -59,8 +79,18 @@ function plotcht(request){
                         lineWidth: 1,
                         marker: {
                             lineWidth: 1,
-                            lineColor: '#666666'
+                            lineColor: '#666666',
                         }
+                    },
+                    series: {//设置点样式
+                        marker:{
+                            radius:0,
+                            states:{
+                                hover:{
+                                    enabled:false,
+                                }
+                            }
+                        },
                     }
                 },
                 series: drawdat
