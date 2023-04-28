@@ -1,7 +1,7 @@
 /* 设置页面基本字体样式 */
 html {
     font-size: 16px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "宋体","Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 html,body{
     width: 100%;

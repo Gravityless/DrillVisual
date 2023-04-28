@@ -3,7 +3,7 @@ function plotcht(request){
     //封装成函数，方便传入request参数
     axios.post('http://localhost/DrillVisual/ChartPlot', request)
         .then(function (response) {
-            console.log("response from server:"+response)
+            console.log("response from server:"+JSON.stringify(response))
             // 这里获取返回数据
             var result = response.data;
             // 若干地层面组成的数组，有name和data两个属性
