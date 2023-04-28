@@ -78,8 +78,6 @@
   var typeSelect = document.getElementById('type');
   var draw;
   var typeValue;
-  var isdraw=false;
-  var json = [];
   var source = new ol.source.Vector();
   // 设置样式
   var vectorLayer = new ol.layer.Vector({
@@ -110,30 +108,17 @@
       type: typeValue
     });
     if (typeValue=='LineString'){
-      draw.on('drawstart',function (){
-        isdraw=true;
-      })
-
       draw.on('drawend',async function (evt){
-        isdraw=false;
-        var xy=document.querySelector("#wrapper #location .custom-mouse-position").innerHTML;
-        xy=xy.split(',');xy[0]=parseFloat(xy[0]);xy[1]=parseFloat(xy[1])
-        json.push(xy);
-        console.log(json);
+          var geom=evt.feature.getGeometry()//改用getGeometry方法，在整条线线画完时获取线中点的信息,修复遗漏点的bug
+          var json=[];
+          for (var i=0;i<geom.B.length;i+=2){
+              json.push([geom.B[i],geom.B[i+1]]) //将每个点的xy信息push进数组中
+          }
         await plotcht(json);
-        json=[];
       })
     }
-
     map.addInteraction(draw);
   }
-
-  map.on('singleclick',function (evt){
-    if (isdraw){
-      console.log(evt.coordinate)
-      json.push(evt.coordinate)
-    }
-  })
 
   // 点击事件方法
   function drawVector() {
