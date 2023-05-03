@@ -92,14 +92,12 @@ section .visual-content{
      margin:5px auto;
 }
  div#wrapper #location{
-     line-height: 50px;
+     width:40%;
      float: left;
  }
  div#wrapper #scale{
-     line-height: 50px;
+     width: 40%;
      float: right;
-     position: relative;
-     right:60%;
  }
  div#pointtable{
      height: 200px;
