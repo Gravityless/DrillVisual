@@ -45,6 +45,13 @@ function plotcht(request){
              for (var i=0;i<drawdat.length;++i){
                  drawdat[i].color={pattern:patts[i]}
              }
+            // 提取钻孔编号
+            var drillCodes = "";
+            for (var i=0;i<result.drillPointList.length;i++) {
+                drillCodes += result.drillPointList[i].drillCode;
+                drillCodes += "-";
+            }
+            drillCodes = drillCodes.substring(0, drillCodes.length-1);
             // 指定图表的配置项
             var cht= {
                 chart:{
@@ -54,7 +61,7 @@ function plotcht(request){
                     }
                 },
                 title: {
-                    text: '地层连线剖面图',
+                    text: '地质剖面图<br>(钻孔编号：' + drillCodes +')',
                     align: 'center'
                 },
                 xAxis:{

@@ -66,7 +66,7 @@ function plotcht(request){
                     // Try 'horizontal'
                     data: legendArray,
                     orient: 'horizontal',
-                    right: 0,
+                    // right: 0,
                     top: 'bottom'
                 },
                 xAxis: {

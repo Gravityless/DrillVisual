@@ -17,7 +17,7 @@
 <!-- 导航栏 -->
 <nav>
     <div class="logo">
-        <a href="#">钻孔数据可视化平台</a>
+        <a href="#">基于钻孔数据的剖面图自动绘制系统</a>
     </div>
     <ul class="nav-links">
         <li><a href="http://localhost/DrillVisual/index.html">填充图</a></li>
@@ -30,32 +30,29 @@
 <!-- 主体内容区域 -->
 <div id="main">
     <section class="data-visualization">
-        <h2>研究区域</h2>
+        <h3>研究区域</h3>
         <div class="draw-polygon">
             <label style="font-weight: bold;">
-                几何图形类型：
+                钻孔选择工具：
             </label>
             <select id="type">
-                <option value="None" selected="selected">无</option>
-                <option value="Point">点</option>
-                <option value="LineString">线</option>
-                <option value="Polygon">多边形</option>
+                <option value="None" selected="selected">清除已选择</option>
+                <option value="LineString">绘制钻孔线</option>
             </select>
             <button class="tool-button" id="draw-element" onclick="drawVector()">绘制</button>
         </div>
 
-        <div id="mapDiv" class="visual-content"></div>
+        <div id="mapDiv"></div>
         <div id="wrapper">
             <div id="location"></div>
             <div id="scale">比例尺：1:</div>
         </div>
     </section>
+
     <section class="data-visualization">
-        <h3>剖面图结果</h3>
-        <div id="dataDiv" class="visual-content"></div>
+        <h3>自动绘制结果</h3>
+        <div id="dataDiv"></div>
     </section>
-
-
 </div>
 
 <div id="pointtable"></div>
@@ -65,15 +62,8 @@
 <script src="./js/plotChartPolygon.js"></script>
 <!-- 页脚 -->
 <footer>
-    <div class="footer-links">
-        <a href="#">关于我们</a>
-        <a href="#">联系我们</a>
-        <a href="#">常见问题</a>
-        <a href="#">服务协议</a>
-        <a href="#">隐私政策</a>
-    </div>
     <div class="footer-info">
-        <p>© 2023 NJU-GEO. All Rights Reserved.</p>
+        <p>© 2023 基于钻孔数据的剖面图自动绘制系统.</p>
     </div>
 </footer>
 <script type="text/javascript">
