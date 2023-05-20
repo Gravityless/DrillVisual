@@ -122,9 +122,9 @@ function plotcht(request){
                     headerFormat:"",
                     pointFormat: '地层名称:' +
                         '{series.name}<br>'+
-                        '水平距离: ' +
+                        '水平距离:(m) ' +
                         '{point.x:.2f}<br>'+
-                        '深度: ' +
+                        '深度:(m) ' +
                         '{point.y:.2f}',
                     valueDecimals: 2,
                 },
