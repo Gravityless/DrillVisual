@@ -9,6 +9,33 @@ function plotcht(request){
             // 若干地层面组成的数组，有name和data两个属性
             var drawdat = [];
             var polygonList = result.layerPolygonList;
+            var colNum = result.drillDistance.length + 1;
+            var xArray=[];
+            var colarr=[];
+            // 计算xArray
+            var idx, sum;
+            sum = 0;
+            for (idx = 0; idx < result.drillDistance.length; idx++) {
+                xArray[idx] = sum;
+                sum += result.drillDistance[idx];
+            }
+            xArray[idx] = sum;
+            for (idx = 0; idx < colNum; idx++) {
+                var height = result.drillPointList[idx].drillHeight;
+                var depth = result.drillPointList[idx].drillDepth;
+                var line = {
+                    data:[
+                        [xArray[idx], height],
+                        [xArray[idx], height - depth]
+                    ],
+                    type: 'line',
+                    name: 'Drill'
+                };
+                //加入钻孔点
+                colarr.push(line.data[0]);
+                colarr.push(line.data[1]);
+                colarr.push('-');
+            }
             // 不合并图例
             // for (i = 0; i < polygonList.length; i++) {
             //     var polygon = {
@@ -44,6 +71,7 @@ function plotcht(request){
              }
              for (var i=0;i<drawdat.length;++i){
                  drawdat[i].color={pattern:patts[i]}
+                 drawdat[i].type="arearange"
              }
             // 提取钻孔编号
             var drillCodes = "";
@@ -52,10 +80,21 @@ function plotcht(request){
                 drillCodes += "-";
             }
             drillCodes = drillCodes.substring(0, drillCodes.length-1);
+            var series=[];
+            for (var i=0;i<drawdat.length;++i){
+                series.push(drawdat[i]);
+            }
+            //加入钻孔线
+            series.push({
+                type: "line",
+                name: "钻孔线",
+                data:colarr,
+                lineColor:'black',
+            })
+
             // 指定图表的配置项
             var cht= {
                 chart:{
-                    type:'arearange',
                     style:{
                         fontFamily: "宋体",
                     }
@@ -79,6 +118,16 @@ function plotcht(request){
                         text: '地层深度(m)',
                     }
                 },
+                tooltip:{
+                    headerFormat:"",
+                    pointFormat: '地层名称:' +
+                        '{series.name}<br>'+
+                        '水平距离: ' +
+                        '{point.x:.2f}<br>'+
+                        '深度: ' +
+                        '{point.y:.2f}',
+                    valueDecimals: 2,
+                },
                 plotOptions: {
                     area: {
                         stacking: 'normal',
@@ -100,9 +149,9 @@ function plotcht(request){
                         },
                     }
                 },
-                series: drawdat
+                series: series,
             };
-            console.log(cht['series'])
+            console.log(cht.tooltip.pointFormat);
             $('#dataDiv').highcharts(cht);
         })
         .catch(function (error) {
