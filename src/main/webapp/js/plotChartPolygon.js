@@ -120,11 +120,11 @@ function plotcht(request){
                 },
                 tooltip:{
                     headerFormat:"",
-                    pointFormat: '地层名称:' +
+                    pointFormat: '地层编号:' +
                         '{series.name}<br>'+
-                        '水平距离:(m) ' +
+                        '水平距离(m): ' +
                         '{point.x:.2f}<br>'+
-                        '深度:(m) ' +
+                        '深度(m): ' +
                         '{point.y:.2f}',
                     valueDecimals: 2,
                 },
@@ -141,6 +141,7 @@ function plotcht(request){
                     series: {//设置点样式
                         marker:{
                             radius:0,
+                            lineWidth: 5,
                             states:{
                                 hover:{
                                     enabled:false,
